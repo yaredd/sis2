@@ -5,14 +5,15 @@ class SchedulesController < ApplicationController
   # GET /schedules.json
   def index
     if current_user.role? :super_admin or current_user.role? :admin
-      params[:teacher] = 1 unless ! params[:teacher].nil?
+      params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
       params[:block] = 1 unless ! params[:block].nil?
 
-      @schedules = Schedule.q1_schedules.where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block])
+      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||Period.current_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block])
     elsif current_user.role? :teacher
+      
       @teacher = Teacher.find_by_login(current_user.login)
       
-      @schedules = Schedule.q1_schedules.where("teacher_id = ?",  @teacher.id).where(:block_id => params[:block])
+      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||Period.current_period).where("teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||Block.by_teacher(@teacher.id).first.id)
     end
 
 

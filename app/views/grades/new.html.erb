@@ -27,7 +27,7 @@
       <%= f.select :effort_id, options_from_collection_for_select(Effort.all, :id, :name), :include_blank => true %>
     </div>
     <div class="actions">
-      <%= f.submit%>
+      <%= f.submit 'Save', :disable_with => "Saving ..." %>
     </div>
   <% end %>
   <%= link_to "Back", :back %>

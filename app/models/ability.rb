@@ -9,10 +9,11 @@ class Ability
           can :manage, [Schedule, Teacher, Student, Grade, Period, Block, Mark, Effort, SchoolSetup, Course]
        elsif user.role? :teacher
           can :read, Schedule
-          #can :update, Grade do |g|
-          #  g.schedule.teacher.try(:login) == user.login
-          #end
-          #can :create, Grade
+          can :update, Grade do |g|
+            g.schedule.teacher.try(:login) == user.login && g.grading_period == Period.current_period
+          end
+          can :create, Grade
+          
           can :read, Grade
        else
           can :read, Schedule

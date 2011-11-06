@@ -26,7 +26,7 @@ for <%= @grade.schedule.student.fullNameGrade %> <br /><%= @grade.schedule.secti
     <%= f.select :effort_id, options_from_collection_for_select(Effort.all, :id, :name, @grade.effort.id) %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Save', :disable_with => "Saving ..." %>
   </div>
 <% end %>
 
