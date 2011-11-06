@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sis2</title>
+  <%= stylesheet_link_tag    "application", :media => "all"%>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="non-print">
+    <% if current_user.nil? %>
+      <%= link_to "login", new_user_session_path %>
+    <% else %>
+      You are logged in as <%= current_user.login %> <%= button_to "logout", destroy_user_session_path, :method => :delete %>
+        <hr>
+
+            <% if current_user.role? :admin or current_user.role? :super_admin %>
+            <%= link_to "Report Cards", report_card_students_path %> | 
+            <%= link_to "Warning Grades", warning_grades_students_path %> |
+            <%= link_to "Verification", verification_schedules_path %> |
+            <%= link_to "Courses", courses_path %> |
+	    <%= link_to "Students", students_path %> |
+            <% end %>
+            
+            <%= link_to "Teacher Grade Book", schedules_path %> 
+
+        <hr>
+    <% end %>
+
+</div>
+<%= yield %>
+
+</body>
+</html>

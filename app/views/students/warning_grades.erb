@@ -1,0 +1,47 @@
+<div id="search" class="non-print">
+  <fieldset>
+    <legend>Search</legend>
+    <%= form_tag request.url , :method => :get do %>
+       Student: <%= select_tag :id, options_from_collection_for_select(Student.order('firstName ASC'), :id, :fullNameGrade, params[:id]), :include_blank => true %><br />
+      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
+      <%= submit_tag "apply" %>
+   <% end %>
+  </fieldset>
+</div>
+<% @students.each do |student| %>
+
+<% counter = 0 %>
+
+        <% Grade.q1_grades.warning_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
+
+<% if counter == 0 %>
+ <p>Name: <b> <%= grade.schedule.student.fullNameGrade %></b>  <%= link_to "show Report Card", report_card_students_path(:id => student.id) %> </p>
+          <table>
+          <tr>
+
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>Mark</th>
+            <th>Effort</th>
+          </tr>
+
+<% end %>
+<% counter+=1 %>            
+            <tr VALIGN=TOP>
+
+                <td>
+                    <%= grade.schedule.section.course.description %>
+                </td>
+                <td>
+                    <%= grade.schedule.teacher.fullName %>
+                </td>
+                <td>
+                    <%= grade.mark.name %>
+                </td>
+                <td>
+                    <%= grade.effort.name %>
+                </td>
+            </tr>
+        <% end %>
+<% end %>
+</table>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  student: 
+  section: 
+  teacher: 
+  period: 
+  block: 
+  school_setup: 
+
+two:
+  student: 
+  section: 
+  teacher: 
+  period: 
+  block: 
+  school_setup: 

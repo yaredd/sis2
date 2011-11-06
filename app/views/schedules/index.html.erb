@@ -1,0 +1,54 @@
+<h1>Listing schedules</h1>
+<div id="search" class="non-print">
+  <fieldset>
+    <legend>Select Grade Book</legend>
+    <%= form_tag request.url , :method => :get do %>
+      <% if current_user.role? :admin or current_user.role? :super_admin %>
+        Teacher: <%= select_tag :teacher, options_from_collection_for_select(Teacher.order('firstName ASC'), :id, :fullName, params[:teacher]), :include_blank => false %><br />
+        Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(params[:teacher]), :id, :name, params[:block]), :include_blank => false %><br />
+      <% else %>
+      Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(@teacher.id), :id, :name, params[:block]), :include_blank => false %><br />
+      <% end %>
+      <%= submit_tag "apply" %>
+    <% end %>
+  </fieldset>
+</div>
+
+<table>
+  <tr>
+    <th>Student</th>
+    <th>Course</th>
+
+    <th>Q1</th>
+    <th>Mark</th>
+    <th>Effort</th>
+    <th></th>
+
+  </tr>
+
+<% @schedules.each do |schedule| %>
+  <tr>
+    <td><%= schedule.student.fullNameGrade %></td>
+    <td><%= schedule.section.course.name %></td>
+
+    <% if Grade.by_schedule_period("Q1", schedule.id).nil? %>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= link_to "input grade", new_grade_path(:schedule_id => schedule.id)%></td>
+    <% else %>
+      <td></td>
+      <td><u><%= Grade.by_schedule_period("Q1", schedule.id).mark.name %><u></td>
+      <td><u><%= Grade.by_schedule_period("Q1", schedule.id).effort.name %></u></td>
+      <% if can? :update, Grade.by_schedule_period("Q1", schedule.id) %>
+        <td><%= link_to "edit grade", edit_grade_path(Grade.by_schedule_period("Q1", schedule.id)) %></td>
+      <% end %>
+    <% end %>
+ 
+
+
+  </tr>
+<% end %>
+</table>
+
+

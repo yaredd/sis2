@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Student:</b>
+  <%= @schedule.student %>
+</p>
+
+<p>
+  <b>Section:</b>
+  <%= @schedule.section %>
+</p>
+
+<p>
+  <b>Teacher:</b>
+  <%= @schedule.teacher %>
+</p>
+
+<p>
+  <b>Period:</b>
+  <%= @schedule.period %>
+</p>
+
+<p>
+  <b>Block:</b>
+  <%= @schedule.block %>
+</p>
+
+
+
+
+<%= link_to 'Edit', edit_schedule_path(@schedule) %> |
+<%= link_to 'Back', schedules_path %>

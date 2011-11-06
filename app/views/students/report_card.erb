@@ -1,0 +1,108 @@
+<div id="search" class="non-print">
+  <fieldset>
+    <legend>Search Student</legend>
+    <%= form_tag request.url , :method => :get do %>
+      Student: <%= select_tag :id, options_from_collection_for_select(Student.order('firstName ASC'), :id, :fullName, params[:id]), :include_blank => true %><br />
+      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
+      <%= submit_tag "apply" %>
+   <% end %>
+  </fieldset>
+</div>
+
+<% @students.each do |student| %>
+
+    <div class="print-only">
+<div class="spacer"></div>
+<!--
+<div class="header">
+        <IMG SRC="http://ibex.intranet.ics/secondary_grades/header.jpg" NAME="graphics1">
+</div>
+        <BR><BR>
+	<div class="purpose">
+        	<I><B>Purpose of the ICS Secondary Report:</B></I>
+        	<P ALIGN=CENTER STYLE="font-style: normal">The primary purpose for reporting is to communicate student achievement and effort to parents, and to provide a common understanding of the student's progress in learning so far.
+	</div>
+    
+-->
+</div>
+    <div class="report_card">
+
+    <H2 CLASS="western" ALIGN=CENTER STYLE="margin-left: 0.02in; margin-right: 0.02in; text-indent: 0.01in">
+	<I> Quarter 1 Progress Report: August-October 2011</I>
+    </h2>
+	    <div class="aright">Student Name: <b><%= student.fullName %></b><br>        
+	   	Grade: <b><%= student.grade %></b><br>   
+	    Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b> <br></div>
+	    <div class="aleft"> Absence: <b><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></b><br>                                     
+	    Tardies: <b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b><br></div>
+    <table WIDTH=100% CELLPADDING=4 CELLSPACING=0>
+        <COL WIDTH=64*>
+	    <COL WIDTH=64*>
+	    <COL WIDTH=64*>
+	    <COL WIDTH=64*>
+	    <tr>
+		    <th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+              Subject
+            </th>
+		    <th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+              Teacher
+            </th>
+		    <th WIDTH=15% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+              Achievement
+            </th>
+		    <th WIDTH=15% STYLE="border: 1px solid #000000; padding: 0.04in">
+              Effort
+            </th>
+	    </tr>
+        <% Grade.q1_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
+            <tr VALIGN=TOP>
+                <td>
+                    <%= grade.schedule.section.course.description %>
+                </td>
+                <td>
+                    <%= grade.schedule.teacher.fullName %>
+                </td>
+                <td class="put_center">
+                    <%= grade.mark.name %>
+                </td>
+                <td class="put_center">
+                    <%= grade.effort.name %>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+</div><!--report_card ends here-->
+</div>
+<!--
+<div class="print-only">
+<I><B>Notes
+    </B></I>
+
+    <UL>
+	    <LI>Academic achievement grades are described on the back.</li>
+	    <LI>INC (Incomplete) indicates insufficient evidence submitted for the academic achievement grade.</li>
+	    <LI>P (Pass), F (Fail). For certain courses, academic achievement is evaluated only on passing or failing to meet course objectives.</li>
+	    <LI>Effort grades are described on the back.</li>
+	    <LI>Academic honor status is calculated at semester only.</li>
+	    <LI>This Progress Report is based on end of semester standards. The semester ends December 15, 2011.</li>
+    </UL>
+
+
+    <P ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><BR>
+    
+    <div class="sign">
+	<% if ["6", "7", "8"].include? student.grade %>
+		<IMG SRC="http://ibex.intranet.ics/secondary_grades/deron sign.bmp" NAME="Deron Marvin">
+	<% else %>
+		<img src="" name="Joyce Halsey">
+	<% end %>
+		<I>Principal's Signature</I>
+    </div>
+<br />
+
+
+<IMG SRC="http://ibex.intranet.ics/secondary_grades/footer.jpg" NAME="graphics1" ALIGN=LEFT WIDTH=718 HEIGHT=107 BORDER=0></H2>
+</div>
+-->
+<div class="page-break" ></div>
+<% end %>

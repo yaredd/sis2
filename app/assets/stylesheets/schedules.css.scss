@@ -1,0 +1,36 @@
+// Place all the styles related to the schedules controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@media print {
+    table {
+	    font-family: verdana,arial,sans-serif;
+	    font-size:11px;
+	    color:#333333;
+	    border-width: 1px;
+	    border-color: #999999;
+	    border-collapse: collapse;
+    }
+    table th {
+	
+	    border-width: 1px;
+	    padding: 8px;
+	    border-style: solid;
+	    border-color: #999999;
+    }
+
+    table #grade, table #name {
+        width: 10em;
+    }
+
+    table #course {
+        width: 5em;
+    }
+
+    table td {
+
+	    border-width: 1px;
+	    padding: 8px;
+	    border-style: solid;
+	    border-color: #999999;
+    }
+}

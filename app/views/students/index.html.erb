@@ -1,0 +1,32 @@
+<h1>Listing students</h1>
+
+<table>
+  <tr>
+    <th>Adminplusid</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Middlename</th>
+    <th>Gender</th>
+    <th>Grade</th>
+    <th>Tardy</th>
+    <th>Absent</th>
+    <th></th>
+  </tr>
+
+<% @students.each do |student| %>
+  <tr>
+    <td><%= student.adminPlusId %></td>
+    <td><%= student.firstName %></td>
+    <td><%= student.lastName %></td>
+    <td><%= student.middleName %></td>
+    <td><%= student.gender %></td>
+    <td><%= student.grade %></td>
+    <td><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></td>
+    <td><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></td>
+    <td><%= link_to 'edit', edit_student_path(student) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

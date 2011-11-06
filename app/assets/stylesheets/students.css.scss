@@ -1,0 +1,87 @@
+// Place all the styles related to the students controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@media all {
+    table {
+	    font-family: verdana,arial,sans-serif;
+	    font-size:11px;
+	    color:#333333;
+	    border-width: 1px;
+	    border-color: #999999;
+	    border-collapse: collapse;
+	    padding-bottom: 10px;
+    }
+
+    table th {
+	    border-width: 1px;
+	    padding: 8px;
+	    border-style: solid;
+	    border-color: #999999;
+
+    }
+
+    table #grade, table #name {
+        width: 10em;
+    }
+
+    table #course {
+        width: 5em;
+    }
+
+    table td {
+	    border-width: 1px;
+	    padding: 8px;
+	    border-style: solid;
+	    border-color: #999999;
+    }
+
+    table tr td.put_center {
+    	text-align: center;
+    }
+
+    div.purpose {
+    	text-align: center;
+    	font-style: normal;
+	font-size: 90%;
+    }
+
+	div.aleft {
+		position: relative;
+		top: -55px;
+		left: 500px;
+		width: 44%;
+	}
+	div.aright {
+		position: relative;
+		top: 0px;
+		left: 2%;
+		width: 50%;
+	}
+	div.sign {
+		position: relative;
+		left: 20%;
+		font-size: 15px;
+	}
+	div.sign img {
+		padding-left: 10px;
+		width: 245px;
+		height: 70px;
+	}
+	div.sign I {
+		border-top: dotted 1px;
+		padding-top: 1px;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+    div.header {
+	width: 8in;
+        float: none;
+    }
+
+}
+@media print {
+    .page-break  { display:block; page-break-before:always; }
+    @page { size: 8.27in 11.69in; margin-top: 8in; margin-left: 0.39in; margin-right: 0.39in; margin-bottom: 0.45in; }
+    div.spacer { height:260px; }
+    div.back-page td {font-size: .7em}
+}

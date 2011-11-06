@@ -1,0 +1,31 @@
+<%= form_for(@grade) do |f| %>
+  <% if @grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grade.errors.count, "error") %> prohibited this grade from being saved:</h2>
+
+      <ul>
+      <% @grade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% if ! @grade.schedule.nil? %>
+for <%= @grade.schedule.student.fullNameGrade %> Course <%= @grade.schedule.section.course.name %>
+<% end %>
+
+  <div class="field">
+    <%= f.hidden_field :schedule_id, :value => @grade.schedule_id%>
+  </div>
+  <div class="field">
+    <%= f.label :mark %><br />
+    <%= f.select :mark_id, options_from_collection_for_select(Mark.all, :id, :name, @grade.mark.id), :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :effort %><br />
+    <%= f.select :effort_id, options_from_collection_for_select(Effort.all, :id, :name, @grade.effort.id), :include_bland => true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

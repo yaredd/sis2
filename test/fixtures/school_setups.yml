@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  schoolYear: MyString
+  principal: MyString
+
+two:
+  name: MyString
+  schoolYear: MyString
+  principal: MyString

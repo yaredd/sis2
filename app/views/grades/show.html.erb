@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Schedule:</b>
+  <%= @grade.schedule.student.fullNameGrade %> course <%= @grade.schedule.section.course.name %>
+</p>
+
+<p>
+  <b>Mark:</b>
+  <%= @grade.mark.try(:name) %>
+</p>
+
+<p>
+  <b>Effort:</b>
+  <%= @grade.effort.try(:name) %>
+</p>
+
+
+
+<%= link_to 'Back to Grade Book', schedules_path(:block => @grade.schedule.block_id) %>

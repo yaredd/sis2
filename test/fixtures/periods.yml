@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyString
+  startDate: 2011-10-05
+  endDate: 2011-10-05
+  school_setup: 
+
+two:
+  name: MyString
+  description: MyString
+  startDate: 2011-10-05
+  endDate: 2011-10-05
+  school_setup: 

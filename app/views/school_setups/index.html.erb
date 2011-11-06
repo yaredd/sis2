@@ -1,0 +1,27 @@
+<h1>Listing school_setups</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Schoolyear</th>
+    <th>Principal</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @school_setups.each do |school_setup| %>
+  <tr>
+    <td><%= school_setup.name %></td>
+    <td><%= school_setup.schoolYear %></td>
+    <td><%= school_setup.principal %></td>
+    <td><%= link_to 'Show', school_setup %></td>
+    <td><%= link_to 'Edit', edit_school_setup_path(school_setup) %></td>
+    <td><%= link_to 'Destroy', school_setup, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New School setup', new_school_setup_path %>
