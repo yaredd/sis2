@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Mark:</b>
+  <%= @interim_grade.mark.name %>
+</p>
+
+<p>
+  <b>Grading period:</b>
+  <%= @interim_grade.grading_period %>
+</p>
+
+<p>
+  <b>On task:</b>
+  <%= @interim_grade.on_task %>
+</p>
+
+
+
+<p>
+  <b>Positive attitude:</b>
+  <%= @interim_grade.positive_attitude %>
+</p>
+
+<p>
+  <b>Comes prepared:</b>
+  <%= @interim_grade.comes_prepared %>
+</p>
+
+<p>
+  <b>Attends class:</b>
+  <%= @interim_grade.attends_class %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @interim_grade.comment %>
+</p>
+
+
+<%= link_to 'Back to Grade Book', schedules_path(:block => @interim_grade.schedule.block_id, :book => "Interim", :teacher => @interim_grade.schedule.teacher.id ) %>

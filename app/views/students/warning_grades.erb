@@ -11,12 +11,12 @@
 <% @students.each do |student| %>
 
 <% counter = 0 %>
-
+<br />
         <% Grade.q1_grades.warning_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
 
 <% if counter == 0 %>
- <p>Name: <b> <%= grade.schedule.student.fullNameGrade %></b>  <%= link_to "show Report Card", report_card_students_path(:id => student.id) %> </p>
-          <table>
+ <p>Name: <b> <%= grade.schedule.student.fullNameGrade %></b>  &nbsp;&nbsp;&nbsp;<%= link_to "show Report Card", report_card_students_path(:id => student.id) %> </p>
+   <table>
           <tr>
 
             <th>Subject</th>
@@ -43,5 +43,5 @@
                 </td>
             </tr>
         <% end %>
+  </table>
 <% end %>
-</table>

@@ -1,4 +1,6 @@
 Sis2::Application.routes.draw do
+  resources :interim_grades
+
   devise_for :users
 
   resources :grades

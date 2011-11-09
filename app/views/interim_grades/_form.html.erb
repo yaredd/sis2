@@ -1,0 +1,57 @@
+<%= form_for(@interim_grade) do |f| %>
+  <% if @interim_grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@interim_grade.errors.count, "error") %> prohibited this interim_grade from being saved:</h2>
+
+      <ul>
+      <% @interim_grade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :schedule %><br />
+    <%= f.text_field :schedule %>
+  </div>
+  <div class="field">
+    <%= f.label :mark %><br />
+    <%= f.text_field :mark %>
+  </div>
+  <div class="field">
+    <%= f.label :effort %><br />
+    <%= f.text_field :effort %>
+  </div>
+  <div class="field">
+    <%= f.label :grading_period %><br />
+    <%= f.text_field :grading_period %>
+  </div>
+  <div class="field">
+    <%= f.label :on_task %><br />
+    <%= f.text_field :on_task %>
+  </div>
+  <div class="field">
+    <%= f.label :additional_learning %><br />
+    <%= f.text_field :additional_learning %>
+  </div>
+  <div class="field">
+    <%= f.label :positive_attitude %><br />
+    <%= f.text_field :positive_attitude %>
+  </div>
+  <div class="field">
+    <%= f.label :comes_prepared %><br />
+    <%= f.text_field :comes_prepared %>
+  </div>
+  <div class="field">
+    <%= f.label :attends_class %><br />
+    <%= f.text_field :attends_class %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

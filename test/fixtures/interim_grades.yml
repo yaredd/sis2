@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  schedule: 
+  mark: 
+  effort: 
+  grading_period: MyString
+  on_task: MyString
+  additional_learning: MyString
+  positive_attitude: MyString
+  comes_prepared: MyString
+  attends_class: MyString
+  comment: MyText
+
+two:
+  schedule: 
+  mark: 
+  effort: 
+  grading_period: MyString
+  on_task: MyString
+  additional_learning: MyString
+  positive_attitude: MyString
+  comes_prepared: MyString
+  attends_class: MyString
+  comment: MyText

@@ -1,0 +1,41 @@
+<h1>Listing interim_grades</h1>
+
+<table>
+  <tr>
+    <th>Schedule</th>
+    <th>Mark</th>
+    <th>Effort</th>
+    <th>Grading period</th>
+    <th>On task</th>
+    <th>Additional learning</th>
+    <th>Positive attitude</th>
+    <th>Comes prepared</th>
+    <th>Attends class</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @interim_grades.each do |interim_grade| %>
+  <tr>
+    <td><%= interim_grade.schedule %></td>
+    <td><%= interim_grade.mark %></td>
+    <td><%= interim_grade.effort %></td>
+    <td><%= interim_grade.grading_period %></td>
+    <td><%= interim_grade.on_task %></td>
+    <td><%= interim_grade.additional_learning %></td>
+    <td><%= interim_grade.positive_attitude %></td>
+    <td><%= interim_grade.comes_prepared %></td>
+    <td><%= interim_grade.attends_class %></td>
+    <td><%= interim_grade.comment %></td>
+    <td><%= link_to 'Show', interim_grade %></td>
+    <td><%= link_to 'Edit', edit_interim_grade_path(interim_grade) %></td>
+    <td><%= link_to 'Destroy', interim_grade, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Interim grade', new_interim_grade_path %>

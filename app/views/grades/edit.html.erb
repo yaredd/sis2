@@ -19,7 +19,7 @@ for <%= @grade.schedule.student.fullNameGrade %> <br /><%= @grade.schedule.secti
   </div>
   <div class="field">
     <%= f.label :mark %><br />
-    <%= f.select :mark_id, options_from_collection_for_select(Mark.all, :id, :name, @grade.mark.id) %>
+    <%= f.select :mark_id, options_from_collection_for_select(Mark.all, :id, :name, @grade.mark.id)%>
   </div>
   <div class="field">
     <%= f.label :effort %><br />

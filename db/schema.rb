@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111025081238) do
+ActiveRecord::Schema.define(:version => 20111108020020) do
 
   create_table "blocks", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,25 @@ ActiveRecord::Schema.define(:version => 20111025081238) do
   add_index "grades", ["effort_id"], :name => "index_grades_on_effort_id"
   add_index "grades", ["mark_id"], :name => "index_grades_on_mark_id"
   add_index "grades", ["schedule_id"], :name => "index_grades_on_schedule_id"
+
+  create_table "interim_grades", :force => true do |t|
+    t.integer  "schedule_id"
+    t.integer  "mark_id"
+    t.integer  "effort_id"
+    t.string   "grading_period"
+    t.string   "on_task"
+    t.string   "additional_learning"
+    t.string   "positive_attitude"
+    t.string   "comes_prepared"
+    t.string   "attends_class"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "interim_grades", ["effort_id"], :name => "index_interim_grades_on_effort_id"
+  add_index "interim_grades", ["mark_id"], :name => "index_interim_grades_on_mark_id"
+  add_index "interim_grades", ["schedule_id"], :name => "index_interim_grades_on_schedule_id"
 
   create_table "marks", :force => true do |t|
     t.string   "name"
