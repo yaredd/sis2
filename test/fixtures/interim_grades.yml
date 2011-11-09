@@ -6,7 +6,6 @@ one:
   effort: 
   grading_period: MyString
   on_task: MyString
-  additional_learning: MyString
   positive_attitude: MyString
   comes_prepared: MyString
   attends_class: MyString
@@ -18,7 +17,6 @@ two:
   effort: 
   grading_period: MyString
   on_task: MyString
-  additional_learning: MyString
   positive_attitude: MyString
   comes_prepared: MyString
   attends_class: MyString

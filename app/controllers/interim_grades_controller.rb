@@ -40,7 +40,7 @@ class InterimGradesController < ApplicationController
   # POST /interim_grades
   # POST /interim_grades.json
   def create
-    @interim_grade = InterimGrade.new(:mark_id => params[:interim_grade][:mark_id], :on_task => params[:interim_grade][:on_task], :additional_learning => params[:interim_grade][:additional_learning], :positive_attitude => params[:interim_grade][:positive_attitude], :comes_prepared => params[:interim_grade][:comes_prepared], :attends_class => params[:interim_grade][:attends_class], :comment => params[:interim_grade][:comment])
+    @interim_grade = InterimGrade.new(params[:interim_grade])
     @interim_grade.grading_period = Period.current_period  # TODO: must let admin user choose grading period
     # check if the passed schedule_id belongs to the editor or admin
     if Schedule.find(params[:interim_grade][:schedule_id]).teacher.login == current_user.login or current_user.role? :super_admin or current_user.role? :admin
