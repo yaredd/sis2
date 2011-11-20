@@ -1,39 +1,147 @@
-<h1>Listing interim_grades</h1>
 
-<table>
-  <tr>
-    <th>Schedule</th>
-    <th>Mark</th>
-    <th>Effort</th>
-    <th>Grading period</th>
-    <th>On task</th>
-    <th>Positive attitude</th>
-    <th>Comes prepared</th>
-    <th>Attends class</th>
-    <th>Comment</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+
+<div id="search" class="non-print">
+  <fieldset>
+    <legend>Search Student</legend>
+    <%= form_tag request.url , :method => :get do %>
+      Student: <%= select_tag :student, options_from_collection_for_select(@students, :id, :fullName, params[:student]), :include_blank => true %><br />
+      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
+      <%= submit_tag "apply" %>
+   <% end %>
+  </fieldset>
+</div>
 
 <% @interim_grades.each do |interim_grade| %>
-  <tr>
-    <td><%= interim_grade.schedule %></td>
-    <td><%= interim_grade.mark %></td>
-    <td><%= interim_grade.effort %></td>
-    <td><%= interim_grade.grading_period %></td>
-    <td><%= interim_grade.on_task %></td>
-    <td><%= interim_grade.positive_attitude %></td>
-    <td><%= interim_grade.comes_prepared %></td>
-    <td><%= interim_grade.attends_class %></td>
-    <td><%= interim_grade.comment %></td>
-    <td><%= link_to 'Show', interim_grade %></td>
-    <td><%= link_to 'Edit', edit_interim_grade_path(interim_grade) %></td>
-    <td><%= link_to 'Destroy', interim_grade, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+
+<div class="print-only">
+<div>
+	<img src="eagle logo.jpg" width="20%" height="20%">
+</div>
+<h2>INTERIM REPORT NOVEMBER 2011</h2>
+<table width="100%">
+	<tr>
+		<td>
+			Student's Name
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.student.fullName %></b>
+		</td>
+		<td>
+			Grade Level
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.student.grade %></b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Course Tile
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.schedule.section.course.description %></b>
+		</td>
+		<td>
+			Teacher
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.schedule.teacher.fullName %></b>
+		</td>
+</table>
+<p></p>
+<table width="100%">
+	<tr>
+		<td>
+			Achievment
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.mark.name %></b>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			Effort is the combination of attitudes and behaviors that help Middle and High School students learn and study successfully in school. Each area is important for a student to demonstrate academic achievement at ICS.
+		</td>
+	</tr>
+	<tr>
+		<td>
+			On task; engaged with assigned learning without teacher influence being necessary.
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.on_task %></b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Shows a positive and respectful attitude toward classroom expectations and rules, with no teacher influence required.
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.positive_attitude %></b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Comes to class prepared in every way expected,  including homework, with no monitoring needed.
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.comes_prepared %></b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Attends class regularly and on time.
+		</td>
+		<td class="put_center">
+			<b><%= interim_grade.attends_class %></b>
+		</td>
+	</tr>
+	
+</table>
+<p></p>
+<p>
+Comment:<br />
+<%= interim_grade.comment %>
+</p>
+<p></p>
+
+<table border="0" width="100%">
+	<tr>
+		<td class="put_center">
+			<img src="deron.jpg" width="37%" height="37%"><br />
+			Deron Marvin<br />
+			Middle School Principal
+		</td>
+		<td class="put_center" width="50%">
+			<img src="joyce.jpg" width="37%" height="37%"><br />
+			Joyce Halsey<br />
+			High School Principal
+		</td>
+	</tr>
 </table>
 
-<br />
+</div>
 
-<%= link_to 'New Interim grade', new_interim_grade_path %>
+<div class="non-print">
+	<hr />
+		Name: <u><%= interim_grade.student.fullName %></u><br />
+		Course: <u><%= interim_grade.schedule.section.course.description %></u><br />
+		Teacher: <u><%= interim_grade.schedule.teacher.fullName %></u><br />
+		<br />
+		Achievment: <b><%= interim_grade.mark.name %></b><br />
+		Effort<br />
+		<ul>
+			<li>On task; engaged with assigned learning without teacher influence being necessary: <b><%= interim_grade.on_task %></b></li>
+			<li>Shows a positive and respectful attitude toward classroom expectations and rules, with no teacher influence required: <b><%= interim_grade.positive_attitude %></b></li>
+			<li>Comes to class prepared in every way expected,  including homework, with no monitoring needed: <b><%= interim_grade.comes_prepared %></b></li>
+			<li>Attends class regularly and on time. <b><%= interim_grade.attends_class %></b></li>
+		</ul>
+		Comment:<br />
+		<%= interim_grade.comment %>
+
+	<p></p>
+	<p></p>
+	<p></p>
+	<hr />
+</div>
+<div class="page-break" ></div>
+<% end %>
+

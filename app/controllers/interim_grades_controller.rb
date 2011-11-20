@@ -2,8 +2,22 @@ class InterimGradesController < ApplicationController
   # GET /interim_grades
   # GET /interim_grades.json
   def index
-    @interim_grades = InterimGrade.all
-
+  	if ! ( nilOrEmpty?(params[:student]) | nilOrEmpty?(params[:grade]) )
+    	@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.where("students.grade = ? and  students.id = ?", params[:grade].to_i, params[:student].to_i).order(:grade, :firstname))
+    elsif ! nilOrEmpty?(params[:student]) & nilOrEmpty?(params[:grade])
+    	@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.where("students.id = ?", params[:student].to_i).order(:grade, :firstname))
+		elsif  nilOrEmpty?(params[:student]) & ! nilOrEmpty?(params[:grade])
+    	@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.where("students.grade = ?", params[:grade].to_i).order(:grade, :firstname))
+		else
+			@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.order(:grade, :firstname))
+		end
+		
+		s = []
+		@interim_grades.each do |i|
+			s << i.student
+		end
+		@students = s.uniq
+		
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @interim_grades }
@@ -83,5 +97,18 @@ class InterimGradesController < ApplicationController
       format.html { redirect_to interim_grades_url }
       format.json { head :ok }
     end
+  end
+  
+  private
+  
+  def nilOrEmpty? s
+  
+  	if s.nil?
+  		return true
+  	elsif s.to_s.empty?
+  		return true
+  	else
+  		return false
+  	end
   end
 end
