@@ -14,110 +14,117 @@
 <% @interim_grades.each do |interim_grade| %>
 
 <div class="print-only">
-<div>
-	<img src="eagle logo.jpg" width="20%" height="20%">
-</div>
-<h2>INTERIM REPORT NOVEMBER 2011</h2>
-<table width="100%">
-	<tr>
-		<td>
-			Student's Name
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.student.fullName %></b>
-		</td>
-		<td>
-			Grade Level
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.student.grade %></b>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Course Tile
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.schedule.section.course.description %></b>
-		</td>
-		<td>
-			Teacher
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.schedule.teacher.fullName %></b>
-		</td>
-</table>
-<p></p>
-<table width="100%">
-	<tr>
-		<td>
-			Achievment
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.mark.name %></b>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			Effort is the combination of attitudes and behaviors that help Middle and High School students learn and study successfully in school. Each area is important for a student to demonstrate academic achievement at ICS.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			On task; engaged with assigned learning without teacher influence being necessary.
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.on_task %></b>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Shows a positive and respectful attitude toward classroom expectations and rules, with no teacher influence required.
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.positive_attitude %></b>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Comes to class prepared in every way expected,  including homework, with no monitoring needed.
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.comes_prepared %></b>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Attends class regularly and on time.
-		</td>
-		<td class="put_center">
-			<b><%= interim_grade.attends_class %></b>
-		</td>
-	</tr>
+	<div>
+		<img src="eagle logo.jpg" width="20%" height="20%">
+	</div>
+	<p>
+	<h3 align="center">INTERIM REPORT &nbsp;&nbsp; NOVEMBER 2011</h3>
+	</p>
+	<p>
+		Dear Parents,<br />
+
+		Semester 1 ends on 15 December 2011 for Middle and High School.  This interim report indicates the effort and achievement the student has demonstrated thus far. 
+	</p>
+	<br />
+	<table width="100%">
+		<tr>
+			<td>
+				Student's Name
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.student.fullName %></b>
+			</td>
+			<td>
+				Grade Level
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.student.grade %></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Course Tile
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.schedule.section.course.description %></b>
+			</td>
+			<td>
+				Teacher
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.schedule.teacher.fullName %></b>
+			</td>
+	</table>
+	<p></p>
+	<table width="100%">
+		<tr>
+			<td>
+				Achievement
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.mark.name %></b>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<b>Effort is the combination of attitudes and behaviors that help Middle and High School students learn and study successfully in school. Each area is important for a student to demonstrate academic achievement at ICS.</b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				On task; engaged with assigned learning without teacher influence being necessary.
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.on_task %></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Shows a positive and respectful attitude toward classroom expectations and rules, with no teacher influence required.
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.positive_attitude %></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Comes to class prepared in every way expected,  including homework, with no monitoring needed.
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.comes_prepared %></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Attends class regularly and on time.
+			</td>
+			<td class="put_center">
+				<b><%= interim_grade.attends_class %></b>
+			</td>
+		</tr>
 	
-</table>
-<p></p>
-<p>
-Comment:<br />
-<%= interim_grade.comment %>
-</p>
-<p></p>
-
-<table border="0" width="100%">
-	<tr>
-		<td class="put_center">
-			<img src="deron.jpg" width="37%" height="37%"><br />
-			Deron Marvin<br />
-			Middle School Principal
-		</td>
-		<td class="put_center" width="50%">
-			<img src="joyce.jpg" width="37%" height="37%"><br />
-			Joyce Halsey<br />
-			High School Principal
-		</td>
-	</tr>
-</table>
-
+	</table>
+	<p></p>
+	<p>
+	Comment:<br />
+	<%= interim_grade.comment %>
+	</p>
+	<p></p>
+	<div id="signature">
+		<% if ["6", "7", "8"].include? interim_grade.student.grade %>
+				<div class="put_center">
+					<img src="deron.jpg" width="20%" height="20%"><br />
+					Deron Marvin<br />
+					Middle School Principal
+				</div>
+		<% else %>
+				<div class="put_center">
+					<img src="joyce.jpg" width="20%" height="20%"><br />
+					Joyce Halsey<br />
+					High School Principal
+				</div>
+		<% end %>
+	</div>
 </div>
 
 <div class="non-print">
