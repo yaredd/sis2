@@ -21,7 +21,7 @@ authorizations: &AUTHORIZATIONS
 ## Enviornments
 
 development:
-  host: 172.16.0.133
+  host: localhost
   port: 389
   attribute: uid
   base: ou=people,dc=intranet,dc=ics

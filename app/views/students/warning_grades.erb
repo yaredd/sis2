@@ -11,7 +11,7 @@
 <% @students.each do |student| %>
 
 <% counter = 0 %>
-<br />
+
         <% Grade.q1_grades.warning_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
 
 <% if counter == 0 %>
@@ -43,5 +43,8 @@
                 </td>
             </tr>
         <% end %>
+<% if counter != 0 %>
   </table>
+  <br /><br />
+<% end %>
 <% end %>
