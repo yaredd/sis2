@@ -7,6 +7,8 @@ class Ability
           can :manage, :all
        elsif user.role? :admin
           can :manage, [Schedule, Teacher, Student, Grade, InterimGrade, Period, Block, Mark, Effort, SchoolSetup, Course]
+       elsif user.role? :admin_ro
+       		can :read, [Schedule, Teacher, Student, Grade, InterimGrade, Period, Block, Mark, Effort, SchoolSetup, Course]
        elsif user.role? :teacher
           can :read, Schedule
           can :update, Grade do |g|

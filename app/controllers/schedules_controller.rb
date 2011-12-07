@@ -4,7 +4,7 @@ class SchedulesController < ApplicationController
   # GET /schedules
   # GET /schedules.json
   def index
-    if current_user.role? :super_admin or current_user.role? :admin
+    if current_user.role? :super_admin or current_user.role? :admin or current_user.role? :admin_ro
       params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
       params[:block] = 1 unless ! params[:block].nil?
 

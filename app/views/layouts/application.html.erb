@@ -14,7 +14,7 @@
       You are logged in as <%= current_user.login %> <%= button_to "logout", destroy_user_session_path, :method => :delete %>
         <hr>
 
-            <% if current_user.role? :admin or current_user.role? :super_admin %>
+            <% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
             <%= link_to "Report Cards", report_card_students_path %> | 
             <%= link_to "Interim Reports", interim_grades_path %> | 
             <%= link_to "Warning Grades", warning_grades_students_path %> |

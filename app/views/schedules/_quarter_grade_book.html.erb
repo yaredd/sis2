@@ -18,7 +18,9 @@
       <td></td>
 
       <td></td>
-      <td><%= link_to "input grade", new_grade_path(:schedule_id => schedule.id)%></td>
+      <% if can? :create, Grade %>
+      	<td><%= link_to "input grade", new_grade_path(:schedule_id => schedule.id)%></td>
+      <% end %>
     <% else %>
 
       <td><u><%= Grade.by_schedule_period(params[:grading_period]||Period.current_period, schedule.id).mark.name %><u></td>
