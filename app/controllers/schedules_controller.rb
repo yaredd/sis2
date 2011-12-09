@@ -8,12 +8,12 @@ class SchedulesController < ApplicationController
       params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
       params[:block] = 1 unless ! params[:block].nil?
 
-      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||Period.current_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block])
+      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block]).joins(:student).merge(Student.order(:firstName))
     elsif current_user.role? :teacher
       
       @teacher = Teacher.find_by_login(current_user.login)
       
-      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||Period.current_period).where("teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||Block.by_teacher(@teacher.id).first.id)
+      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||=Period.current_grading_period).where("schedules.teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||=Block.by_teacher(@teacher.id).first.id).joins(:student).merge(Student.order(:firstName))
     end
 
 
@@ -24,8 +24,8 @@ class SchedulesController < ApplicationController
   end
 
   def verification
-      params[:teacher] = 1 unless ! params[:teacher].nil?
-      @schedules = Schedule.q1_schedules.where(:teacher_id => params[:teacher].to_i)
+      params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
+      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).joins(:student).merge(Student.order(:firstName))
   end
 
   # GET /schedules/1

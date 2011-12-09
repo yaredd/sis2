@@ -4,7 +4,7 @@
     <legend>Select Teacher</legend>
     <%= form_tag request.url , :method => :get do %>
 
-        Teacher: <%= select_tag :teacher, options_from_collection_for_select(Teacher.order('firstName ASC'), :id, :fullName, params[:teacher]), :include_blank => false %><br />
+        Teacher: <%= select_tag :teacher, options_from_collection_for_select(Teacher.order(:firstName), :id, :fullName, params[:teacher]), :include_blank => false %><br />
 
 
       <%= submit_tag "apply" %>
@@ -14,7 +14,7 @@
 
 <% Block.by_teacher(params[:teacher]).each do |b| %>
 <hr />
-    <h2><%= Teacher.find(params[:teacher]).fullName + " Block " + b.name %></h2><h2> Q1 Grade Verification </h2>
+    <h2><%= Teacher.find(params[:teacher]).fullName + " Block " + b.name %></h2><h2> <%= Period.current_grading_period %> Grade Verification </h2>
 <hr />
     <table >
       <tr>
@@ -31,15 +31,15 @@
         <td><%= schedule.student.fullNameGrade %></td>
         <td><%= schedule.section.course.name %></td>
 
-        <% if Grade.by_schedule_period(Period.current_period, schedule.id).nil? %>
+        <% if Grade.by_schedule_period(Period.current_grading_period, schedule.id).nil? %>
           <td></td>
           <td></td>
 
           <td>&#9744</td>
         <% else %>
 
-          <td><%= Grade.by_schedule_period(Period.current_period, schedule.id).mark.name %></td>
-          <td><%= Grade.by_schedule_period(Period.current_period, schedule.id).effort.name %></td>
+          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).mark.name %></td>
+          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).effort.name %></td>
           <td>&#9744</td>
         <% end %>
       </tr>

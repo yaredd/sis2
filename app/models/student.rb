@@ -17,9 +17,9 @@ class Student < ActiveRecord::Base
   def self.search grade, id
     if ! null_or_empty? grade and ! null_or_empty? id
       where(:grade => grade.to_i).where(:id => id.to_i)
-  elsif ! null_or_empty? grade and  null_or_empty? id
+  	elsif ! null_or_empty? grade and  null_or_empty? id
       where(:grade => grade.to_i)
-  elsif null_or_empty? grade and ! null_or_empty? id
+  	elsif null_or_empty? grade and ! null_or_empty? id
       where(:id => id.to_i)
     else
       all

@@ -14,7 +14,7 @@
     <td><%= schedule.student.fullNameGrade %></td>
     <td><%= schedule.section.course.name %></td>
 
-    <% if Grade.by_schedule_period(params[:grading_period]||Period.current_period, schedule.id).nil? %>
+    <% if Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).nil? %>
       <td></td>
 
       <td></td>
@@ -23,10 +23,10 @@
       <% end %>
     <% else %>
 
-      <td><u><%= Grade.by_schedule_period(params[:grading_period]||Period.current_period, schedule.id).mark.name %><u></td>
-      <td><u><%= Grade.by_schedule_period(params[:grading_period]||Period.current_period, schedule.id).effort.name %></u></td>
-      <% if can? :update, Grade.by_schedule_period(params[:grading_period]||Period.current_period, schedule.id) %>
-        <td><%= link_to "edit grade", edit_grade_path(Grade.by_schedule_period(params[:grading_period]||Period.current_period, schedule.id)) %></td>
+      <td><u><%= Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).mark.name %><u></td>
+      <td><u><%= Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).effort.name %></u></td>
+      <% if can? :update, Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id) %>
+        <td><%= link_to "edit grade", edit_grade_path(Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id)) %></td>
       <% end %>
     <% end %>
 

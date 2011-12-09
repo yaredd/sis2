@@ -1,4 +1,6 @@
 class StudentsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /students
   # GET /students.json
   def index
@@ -11,24 +13,24 @@ class StudentsController < ApplicationController
   end
   
   def report_card # listing only Q1 grades. TODO: Remove this hard wired setup
-    @students = Student.order(:firstName,:grade).search params[:grade]||="6", params[:id]
+    @students = Student.order(:firstName,:grade).search(params[:grade]||="6", params[:student_id]||="")
   end
 
   def warning_grades
-    @students = Student.order(:grade, :firstName, :teacher_id).search params[:grade], params[:id]
+    @students = Student.order(:grade, :firstName, :teacher_id).search(params[:grade], params[:student_id]||="")
   end
 
 
   # GET /students/1
   # GET /students/1.json
-  def show
-    @student = Student.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @student }
-    end
-  end
+ # def show
+  #  @student = Student.find(params[:id])
+#
+ #   respond_to do |format|
+  #    format.html # show.html.erb
+   #   format.json { render json: @student }
+    #end
+  #end
 
   # GET /students/new
   # GET /students/new.json

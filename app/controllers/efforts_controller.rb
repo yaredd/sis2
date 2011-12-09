@@ -1,4 +1,6 @@
 class EffortsController < ApplicationController
+	load_and_authorize_resource
+
   # GET /efforts
   # GET /efforts.json
   def index

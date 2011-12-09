@@ -1,4 +1,6 @@
 class BlocksController < ApplicationController
+	load_and_authorize_resource
+
   # GET /blocks
   # GET /blocks.json
   def index

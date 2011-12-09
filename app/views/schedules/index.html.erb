@@ -9,7 +9,7 @@
       <% else %>
       Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(@teacher.id), :id, :name, params[:block]), :include_blank => false %><br />
       <% end %>
-      Grading Period: <%= select_tag "grading_period", options_for_select([["Q1"], ["Sem1"]], params[:grading_period]||Period.current_period) %><br />
+      Grading Period: <%= select_tag "grading_period", options_for_select([["Q1"], ["Q2"], ["Sem1"]], params[:grading_period]||=Period.current_grading_period) %><br />
       <%= radio_button_tag(:book, "Quarter", (params[:book] == "Quarter"  || params[:book].nil?) ? :checked : nil) %>
 	  <%= label_tag(:q_grade, "Quarter/Semester Grade Book") %>
 	  <%= radio_button_tag(:book, "Interim", params[:book] == "Interim" ? :checked : nil ) %>

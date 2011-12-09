@@ -1,4 +1,6 @@
 class InterimGradesController < ApplicationController
+	load_and_authorize_resource
+	
   # GET /interim_grades
   # GET /interim_grades.json
   def index

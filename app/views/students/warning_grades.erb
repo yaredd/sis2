@@ -2,8 +2,9 @@
   <fieldset>
     <legend>Search</legend>
     <%= form_tag request.url , :method => :get do %>
-       Student: <%= select_tag :id, options_from_collection_for_select(Student.order('firstName ASC'), :id, :fullNameGrade, params[:id]), :include_blank => true %><br />
+       Student: <%= select_tag :student_id, options_from_collection_for_select(Student.order('firstName ASC'), :id, :fullNameGrade, params[:student_id]), :include_blank => true %><br />
       Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
+      Grading Period: <%= select_tag :grading_period, options_for_select(["Q1", "Sem1"], params[:grading_period]||=Period.current_grading_period), :include_blank => false %><br />
       <%= submit_tag "apply" %>
    <% end %>
   </fieldset>
@@ -12,7 +13,7 @@
 
 <% counter = 0 %>
 
-        <% Grade.q1_grades.warning_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
+        <% Grade.by_period(params[:grading_period]||=Period.current_grading_period).warning_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
 
 <% if counter == 0 %>
  <p>Name: <b> <%= grade.schedule.student.fullNameGrade %></b>  &nbsp;&nbsp;&nbsp;<%= link_to "show Report Card", report_card_students_path(:id => student.id, :grade => "") %> </p>

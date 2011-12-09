@@ -1,4 +1,4 @@
-<h1>Entering <%= Period.current_period %> Grade</h1>
+<h1>Entering <%= Period.current_grading_period %> Grade</h1>
 <% if ! params[:schedule_id].nil? %>
   for <%= Schedule.find(params[:schedule_id]).student.fullNameGrade %><br/>
   Course: <%= Schedule.find(params[:schedule_id]).section.course.name %>

@@ -1,4 +1,6 @@
 class TeachersController < ApplicationController
+	load_and_authorize_resource
+	
   # GET /teachers
   # GET /teachers.json
   def index

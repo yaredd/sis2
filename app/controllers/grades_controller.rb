@@ -1,5 +1,6 @@
 class GradesController < ApplicationController
-  load_and_authorize_resource 
+  load_and_authorize_resource
+  
   # GET /grades
   # GET /grades.json
   def index
@@ -42,7 +43,7 @@ class GradesController < ApplicationController
   # POST /grades.json
   def create
     @grade = Grade.new(params[:grade])
-    @grade.grading_period = Period.current_period # TODO: must allow admin to enter grades for other periods as well
+    @grade.grading_period = Period.current_grading_period # TODO: must allow admin to enter grades for other periods as well
     # check if the passed schedule_id belongs to the editor or admin
     if Schedule.find(params[:grade][:schedule_id]).teacher.login == current_user.login or current_user.role? :super_admin or current_user.role? :admin
       @grade.schedule_id = params[:grade][:schedule_id]
