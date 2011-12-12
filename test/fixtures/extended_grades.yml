@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  grade: 
+  benchMark: 
+  bmGrade: MyString
+
+two:
+  grade: 
+  benchMark: 
+  bmGrade: MyString

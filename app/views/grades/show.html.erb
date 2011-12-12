@@ -15,6 +15,27 @@
   <%= @grade.effort.try(:name) %>
 </p>
 
+    <% if ! @standards.empty? %>
+    <h3>Standards and Benchmarks</h3>
+          <% c = 0 %>
+      <% @standards.each do |std| %>
+        <%= std.name %>
+        <ul>
 
+          <% std.benchMarks.each do |bm| %>
+            <% eg = ExtendedGrade.find_by_grade_id_and_benchMark_id(@grade.id, bm.id) %>
+            
+            <li><%= bm.name %>: <b><%= eg.bmGrade%></b></li>
+             
+          
+          <% end %>
 
+        </ul>
+      <% end %>
+    <% end %>
+
+    <p>
+      <b>Comment:</b>
+      <%= @grade.comment %> 
+    </p> 
 <%= link_to 'Back to Grade Book', schedules_path(:block => @grade.schedule.block_id, :teacher => @grade.schedule.teacher.id) %>

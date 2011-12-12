@@ -26,6 +26,39 @@
       <%= f.label :effort %><br />
       <%= f.select :effort_id, options_from_collection_for_select(Effort.all, :id, :name), :include_blank => true %>
     </div>
+
+    <% if ! @standards.empty? %>
+    <h3>Standards and Benchmarks</h3>
+          <% c = 0 %>
+      <% @standards.each do |std| %>
+        <%= std.name %>
+        <ul>
+
+          <% std.benchMarks.each do |bm| %>
+            <li><%= bm.name %>: <input type=hidden id=grade_extended_grades_attributes_<%= c%>_benchMark_id name="grade[extended_grades_attributes][<%= c %>][benchMark_id]" value=<%= bm.id %> > 
+            <select id=grade_extended_grades_attributes_<%= c %>_bmGrade name="grade[extended_grades_attributes][<%= c %>][bmGrade]">
+<option value=""></option>
+<option value="7">7</option>
+<option value="6">6</option>
+<option value="5">5</option>
+<option value="4">4</option>
+
+<option value="3">3</option>
+<option value="2">2</option>
+<option value="1">1</option>
+<option value="NG">NG</option></select></li>
+            <% c = c + 1 %>
+          <% end %>
+
+        </ul>
+      <% end %>
+    <% end %>
+ 
+    <div class="field">
+      <%= f.label :comment %><br />
+      <%= f.text_area :comment, :rows => 8 %>
+    </div>         
+
     <div class="actions">
       <%= f.submit 'Save', :disable_with => "Saving ..." %>
     </div>

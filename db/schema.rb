@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111108020020) do
+ActiveRecord::Schema.define(:version => 20111212003025) do
+
+  create_table "bench_marks", :force => true do |t|
+    t.string  "name"
+    t.integer "standard_id"
+  end
+
+  add_index "bench_marks", ["standard_id"], :name => "index_bench_marks_on_standard_id"
 
   create_table "blocks", :force => true do |t|
     t.string   "name"
@@ -33,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20111108020020) do
     t.datetime "updated_at"
   end
 
+  create_table "extended_grades", :force => true do |t|
+    t.integer  "grade_id"
+    t.integer  "benchMark_id"
+    t.string   "bmGrade"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "extended_grades", ["benchMark_id"], :name => "index_extended_grades_on_benchMark_id"
+  add_index "extended_grades", ["grade_id"], :name => "index_extended_grades_on_grade_id"
+
   create_table "grades", :force => true do |t|
     t.integer  "schedule_id"
     t.integer  "mark_id"
@@ -40,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20111108020020) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "grading_period"
+    t.text     "comment"
   end
 
   add_index "grades", ["effort_id"], :name => "index_grades_on_effort_id"
@@ -52,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20111108020020) do
     t.integer  "effort_id"
     t.string   "grading_period"
     t.string   "on_task"
-    t.string   "additional_learning"
     t.string   "positive_attitude"
     t.string   "comes_prepared"
     t.string   "attends_class"
@@ -127,6 +145,15 @@ ActiveRecord::Schema.define(:version => 20111108020020) do
   end
 
   add_index "sections", ["course_id"], :name => "index_sections_on_course_id"
+
+  create_table "standards", :force => true do |t|
+    t.string   "name"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "standards", ["course_id"], :name => "index_standards_on_course_id"
 
   create_table "students", :force => true do |t|
     t.string   "adminPlusId"

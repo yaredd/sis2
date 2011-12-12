@@ -22,11 +22,11 @@
       	<td><%= link_to "input grade", new_grade_path(:schedule_id => schedule.id)%></td>
       <% end %>
     <% else %>
-
-      <td><u><%= Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).mark.name %><u></td>
-      <td><u><%= Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).effort.name %></u></td>
-      <% if can? :update, Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id) %>
-        <td><%= link_to "edit grade", edit_grade_path(Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id)) %></td>
+      <% g = Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id) %>
+      <td><u><%= g.mark.nil? ? "" : g.mark.name %><u></td>
+      <td><u><%= g.effort.nil? ? "" : g.effort.name %></u></td>
+      <% if can? :update, g %>
+        <td><%= link_to "edit grade", edit_grade_path(g) %></td>
       <% end %>
     <% end %>
 

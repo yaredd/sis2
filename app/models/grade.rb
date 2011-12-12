@@ -3,11 +3,13 @@ class Grade < ActiveRecord::Base
   belongs_to :mark
   belongs_to :effort
   has_one :student, :through => :schedule
+  has_many :extended_grades, :dependent => :destroy
 
-  validates_presence_of :mark_id, :schedule_id, :effort_id, :grading_period
-  validates_numericality_of :mark_id, :schedule_id, :effort_id
+  validates_presence_of  :schedule_id, :grading_period
+  validates_numericality_of  :schedule_id
 
-  attr_accessible :mark_id, :effort_id
+  accepts_nested_attributes_for :extended_grades
+  attr_accessible :mark_id, :effort_id, :comment, :extended_grades_attributes
 
   def self.by_schedule_period p,s
     where(:schedule_id => s).where(:grading_period => p).first
