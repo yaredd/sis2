@@ -38,8 +38,8 @@
           <td>&#9744</td>
         <% else %>
 
-          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).mark.name %></td>
-          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).effort.name %></td>
+          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).mark.try(:name) %></td>
+          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).effort.try(:name) %></td>
           <td>&#9744</td>
         <% end %>
       </tr>

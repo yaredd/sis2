@@ -60,10 +60,10 @@
                     <%= grade.schedule.teacher.fullName %>
                 </td>
                 <td class="put_center">
-                    <%= grade.mark.name %>
+                    <%= grade.mark.try(:name) %>
                 </td>
                 <td class="put_center">
-                    <%= grade.effort.name %>
+                    <%= grade.effort.try(:name) %>
                 </td>
             </tr>
         <% end %>

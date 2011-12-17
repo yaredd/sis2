@@ -16,7 +16,7 @@
         <% Grade.by_period(params[:grading_period]||=Period.current_grading_period).warning_grades.joins(:schedule).joins(:student).merge(Student.where(:id => student.id)).each do |grade| %>
 
 <% if counter == 0 %>
- <p>Name: <b> <%= grade.schedule.student.fullNameGrade %></b>  &nbsp;&nbsp;&nbsp;<%= link_to "show Report Card", report_card_students_path(:id => student.id, :grade => "") %> </p>
+ <p>Name: <b> <%= grade.schedule.student.fullNameGrade %></b>  &nbsp;&nbsp;&nbsp;<%= link_to "show Report Card", report_card_students_path(:student_id => student.id, :grade => "") %> </p>
    <table>
           <tr>
 
@@ -37,10 +37,10 @@
                     <%= grade.schedule.teacher.fullName %>
                 </td>
                 <td>
-                    <%= grade.mark.name %>
+                    <%= grade.mark.try(:name) %>
                 </td>
                 <td>
-                    <%= grade.effort.name %>
+                    <%= grade.effort.try(:name) %>
                 </td>
             </tr>
         <% end %>

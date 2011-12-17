@@ -37,19 +37,28 @@ for <%= @grade.schedule.student.fullNameGrade %> <br /><%= @grade.schedule.secti
             <% eg = ExtendedGrade.find_by_grade_id_and_benchMark_id(@grade.id, bm.id) %>
             
             <li><%= bm.name %>: 
-            <input type=hidden id=grade+extended_grades_attributes_<%= c %>_id name="grade[extended_grades_attributes][<%= c %>][id]" value=<%= eg.id %> >
+            <input type=hidden id=grade_extended_grades_attributes_<%= c %>_id name="grade[extended_grades_attributes][<%= c %>][id]" value=<%= eg.try(:id) %> >
             <input type=hidden id=grade_extended_grades_attributes_<%= c%>_benchMark_id name="grade[extended_grades_attributes][<%= c %>][benchMark_id]" value=<%= bm.id %> > 
             <select id=grade_extended_grades_attributes_<%= c %>_bmGrade name="grade[extended_grades_attributes][<%= c %>][bmGrade]">
 <option value=""></option>
-<option value="7" <%= eg.bmGrade == "7" ? "selected='selected'" : "" %> >7</option>
-<option value="6" <%= eg.bmGrade == "6" ? "selected='selected'" : "" %> >6</option>
-<option value="5" <%= eg.bmGrade == "5" ? "selected='selected'" : "" %> >5</option>
-<option value="4" <%= eg.bmGrade == "4" ? "selected='selected'" : "" %> >4</option>
-
-<option value="3" <%= eg.bmGrade == "3" ? "selected='selected'" : "" %> >3</option>
-<option value="2" <%= eg.bmGrade == "2" ? "selected='selected'" : "" %> >2</option>
-<option value="1" <%= eg.bmGrade == "1" ? "selected='selected'" : "" %> >1</option>
-<option value="NG" <%= eg.bmGrade == "NG" ? "selected='selected'" : "" %> >NG</option></select></li>
+<option value="7" <%= eg.try(:bmGrade) == "7" ? "selected='selected'" : "" %> >7</option>
+<option value="6" <%= eg.try(:bmGrade) == "6" ? "selected='selected'" : "" %> >6</option>
+<option value="5" <%= eg.try(:bmGrade) == "5" ? "selected='selected'" : "" %> >5</option>
+<option value="4" <%= eg.try(:bmGrade) == "4" ? "selected='selected'" : "" %> >4</option>
+<option value="3" <%= eg.try(:bmGrade) == "3" ? "selected='selected'" : "" %> >3</option>
+<option value="2" <%= eg.try(:bmGrade) == "2" ? "selected='selected'" : "" %> >2</option>
+<option value="1" <%= eg.try(:bmGrade) == "1" ? "selected='selected'" : "" %> >1</option>
+<option value="7M" <%= eg.try(:bmGrade) == "7M" ? "selected='selected'" : "" %> >7M</option>
+<option value="6M" <%= eg.try(:bmGrade) == "6M" ? "selected='selected'" : "" %> >6M</option>
+<option value="5M" <%= eg.try(:bmGrade) == "5M" ? "selected='selected'" : "" %> >5M</option>
+<option value="4M" <%= eg.try(:bmGrade) == "4M" ? "selected='selected'" : "" %> >4M</option>
+<option value="3M" <%= eg.try(:bmGrade) == "3M" ? "selected='selected'" : "" %> >3M</option>
+<option value="2M" <%= eg.try(:bmGrade) == "2M" ? "selected='selected'" : "" %> >2M</option>
+<option value="1M" <%= eg.try(:bmGrade) == "1M" ? "selected='selected'" : "" %> >1M</option>
+<option value="NG" <%= eg.try(:bmGrade) == "NG" ? "selected='selected'" : "" %> >NG</option>
+<option value="INC" <%= eg.try(:bmGrade) == "INC" ? "selected='selected'" : "" %> >INC</option>
+<option value="P" <%= eg.try(:bmGrade) == "P" ? "selected='selected'" : "" %> >P</option>
+<option value="F" <%= eg.try(:bmGrade) == "F" ? "selected='selected'" : "" %> >F</option></select></li>
             <% c = c + 1 %>
           <% end %>
 
