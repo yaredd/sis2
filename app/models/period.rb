@@ -3,7 +3,7 @@ class Period < ActiveRecord::Base
   has_many  :schedules
 
   def self.current_semester
-  	where("endDate > ? and startDate < ?", 1.week.ago.to_date, 1.week.ago.to_date).where("name like 'Sem%'").first.name.titleize
+  	where("endDate > ? and startDate < ?", 3.week.ago.to_date, 3.week.ago.to_date).where("name like 'Sem%'").first.name.titleize
   end
   
   def  self.current_period

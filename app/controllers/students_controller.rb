@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.order(:grade, :lastName)
+    @students = Student.order(:lastName)
 
     respond_to do |format|
       format.html # index.html.erb
