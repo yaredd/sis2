@@ -4,6 +4,10 @@ class Student < ActiveRecord::Base
 
   attr_accessible :attendance_tardy, :attendance_absent
 
+	def is_MS?
+		return (self.grade == '8' || self.grade == '7' || self.grade == '6')
+	end
+	
   def fullNameGrade
     [[firstName, lastName].join(' '), grade].join(', ')
     
