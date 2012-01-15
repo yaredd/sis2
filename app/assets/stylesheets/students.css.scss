@@ -2,9 +2,104 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @media all {
+
+//sundus editted second page
+div.desc_body{
+    text-align: center;
+}
+div.desc_header{
+    font-size: 14px;
+    font-weight: bold;
+}
+span.desc_he2{
+    font-size: 10px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+div.desc_table{
+    width: 100%;
+    display: table;
+}
+
+div.desc_title {
+    font-weight: bold;
+    font-size: 12px;
+    border-style: solid;
+    border-width: medium;
+    background-color: rgb(100,255,100);
+    text-align:left;
+    vertical-align: middle;
+    height: 14px;
+}
+
+div.desc_containt{
+    display: table-row;
+}
+
+div.desc_value{
+    display: table-cell;
+    border:solid;
+    border-width:thin;
+    border-top: none;
+    text-align:center;
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: middle;
+    width: 7%;
+}
+
+div.desc_value2{
+    display: table-cell;
+    border:solid;
+    border-width:thin;
+    background-color: rgb(100,255,100);
+    text-align:center;	
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: middle;
+    width: 7%;
+}
+
+span.desc_rot{
+    padding-top: 1%;
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg);
+}
+
+div.desc_descr{
+    display: table-cell;
+    border:solid;
+    border-width:thin;
+    border-left:none;
+    border-top: none;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    text-align: justify;
+    text-indent: 15px;
+    font-size: 10px;
+		line-height:100%;
+}
+
+div.desc_descr2{
+    display: table-cell;
+    border:solid;
+    border-width:thin;
+    border-left:none;
+    text-align: left;
+    font-size: 10px;
+		line-height:100%;
+}
+
+span.desc_ind_p{
+    text-indent: 15px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+//end sundus editted second page
     table {
 	    font-family: verdana,arial,sans-serif;
-	    font-size:11px;
+	    font-size:10px;
 	    color:#333333;
 	    border-width: 1px;
 	    border-color: #999999;
@@ -77,11 +172,99 @@
 	width: 8in;
         float: none;
     }
+	table.benchmark {
+		width: 90%;
+		margin-left: 2%;
+	}
+	table td.benchmark_value {
+		width: 1em;
+	}
 
+	div.report_header_left {
+		float: left;
+	}
+	div.report_header_right {
+		float: right;
+		text-align: right;
+	}
+	div.report_grades {
+		clear: both;
+	}
+	div.report_comment {
+		margin-left: 2%;
+		width: 90%;
+	}
+	div.cover_date{
+    vertical-align: middle;
+    float: right;
+    height: 8%;
+		text-align: right;
+}
+
+div.cover_month{
+    float: left;
+		font-size: 25px;
+}
+div.cover_year{
+    float: right;
+    text-align: left;
+		font-size: 35px;
+		font-weight: bold;
+    border-left: solid;
+		height: 105%;
+    border-width: medium;
+}
+
+div.cover_h_bar{
+    background-color: rgb(90,195,253);
+    height: 20px;
+    color: rgb(90,195,253);
+}
+
+div.cover_logo{
+    border: none;
+    border-width: thin;
+    float:left; height:8%;
+}
+
+div.cover_containt{
+    clear: both;
+}
+div.cover_text{
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    font-style: italic;
+    font-size: 15px;
+}
+div.cover_h_bar2{
+    background-color: rgb(1,98,143);
+    height: 90px;
+    width: 93%;
+    color: rgb(255,255,255);
+    float: left;
+    text-align: left;
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 90px;
+}
+	div.report_cover1 {
+		margin-top: 5%;
+		font-size: 20px;
+		line-height: 160%;
+	}
+	div.report_cover2 {
+		margin-left: 5%;
+		margin-top: 7%;
+		margin-bottom: 5%;
+	}
+	img.report_cover3 {
+		margin-top: 20%;
+	}
 }
 @media print {
     .page-break  { display:block; page-break-before:always; }
     @page { size: 8.27in 11.69in; margin-top: 8in; margin-left: 0.39in; margin-right: 0.39in; margin-bottom: 0.45in; }
-    div.spacer { height:260px; }
+   div.spacer { height:260px; }
     div.back-page td {font-size: .7em}
 }
