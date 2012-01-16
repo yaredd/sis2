@@ -77,7 +77,7 @@ div.desc_descr{
     padding-right: 0.5%;
     text-align: justify;
     text-indent: 15px;
-    font-size: 10px;
+    font-size: 11px;
 		line-height:100%;
 }
 
@@ -87,7 +87,7 @@ div.desc_descr2{
     border-width:thin;
     border-left:none;
     text-align: left;
-    font-size: 10px;
+    font-size: 11px;
 		line-height:100%;
 }
 
@@ -195,23 +195,24 @@ span.desc_ind_p{
 		width: 90%;
 	}
 	div.cover_date{
-    vertical-align: middle;
+//    vertical-align: middle;
     float: right;
-    height: 8%;
-		text-align: right;
+//    height: 8%;
+    text-align: right;
+    width: 200px;
 }
 
 div.cover_month{
     float: left;
-		font-size: 25px;
+    font-size: 25px;
 }
 div.cover_year{
     float: right;
     text-align: left;
-		font-size: 35px;
-		font-weight: bold;
+    font-size: 35px;
+    font-weight: bold;
     border-left: solid;
-		height: 105%;
+    height: 105%;
     border-width: medium;
 }
 
@@ -222,9 +223,7 @@ div.cover_h_bar{
 }
 
 div.cover_logo{
-    border: none;
-    border-width: thin;
-    float:left; height:8%;
+    float:left;
 }
 
 div.cover_containt{
@@ -239,14 +238,15 @@ div.cover_text{
 }
 div.cover_h_bar2{
     background-color: rgb(1,98,143);
-    height: 90px;
+    height: 45px;
     width: 93%;
     color: rgb(255,255,255);
     float: left;
     text-align: left;
-    font-size: 34px;
+    font-size: 20px;
     font-weight: bold;
-    line-height: 90px;
+    line-height: 45px;
+    vertical-align: middle;
 }
 	div.report_cover1 {
 		margin-top: 5%;
@@ -255,11 +255,11 @@ div.cover_h_bar2{
 	}
 	div.report_cover2 {
 		margin-left: 5%;
-		margin-top: 7%;
+		margin-top: 3%;
 		margin-bottom: 5%;
 	}
 	img.report_cover3 {
-		margin-top: 20%;
+		margin-top: 7%;
 	}
 }
 @media print {

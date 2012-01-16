@@ -9,7 +9,7 @@
 	</div>
 	<div class="report_cover2">
 		Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b><br />
-		Principal's Signature: <img src="deron.jpg" width="20%" height="20%"><br />
+		Principal's Signature: <img src="../deron.jpg" width="20%"><br />
 		Date: December 2011
 	</div>
 </div>
@@ -33,7 +33,9 @@
 		<td>Achievement</td><td><b><%= student.current_grade_academic_standing_achievement %></b></td><td></td>
 	</tr>
 </table>
-<img  class="report_cover3" src="report_footer.jpg">
+<div class="print-only">
+  <img  class="report_cover3" src="../report_footer.jpg">
+</div>
 <div class="page-break" ></div>
 	<div class="print-only">
 		<%= render "desc" %>
