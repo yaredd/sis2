@@ -5,12 +5,12 @@
 	<div class="report_cover1">
 		Grade <b><%= student.grade %></b><br />
 		Year <b>2011</b><br />
-		Date <b>December</b>
+		Date <b>16 January 2012</b>
 	</div>
 	<div class="report_cover2">
 		Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b><br />
-		Principal's Signature: <img src="../deron.jpg" width="20%"><br />
-		Date: December 2011
+		Principal's Signature: <img style=" border-bottom: solid thin;" src="../deron.jpg" width="20%"><br />
+		Date: 16 January 2012</b>
 	</div>
 </div>
 <table>
@@ -24,7 +24,7 @@
 		<td>Tardies</td><td><b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b></td><td></td>
 	</tr>
 	<tr>
-		<td colspan=3 style="text-align: center">Academic Standing</td>
+		<td colspan=3 style="text-align: center">Academic Standing *</td>
 	</tr>
 	<tr>
 		<td>Effort</td><td><b><%= student.current_grade_academic_standing_effort %></b></td><td></td>
@@ -34,7 +34,10 @@
 	</tr>
 </table>
 <div class="print-only">
-  <img  class="report_cover3" src="../report_footer.jpg">
+	<p style="font-size: 9px;">* Information regarding Academic Standing on last page.</p>
+	<br /><br />
+	<hr>
+  <img  class="report_cover3" src="../report_footer.jpg" width="85%">
 </div>
 <div class="page-break" ></div>
 	<div class="print-only">
