@@ -37,6 +37,9 @@ class Student < ActiveRecord::Base
 	def current_grade_academic_standing_achievement
 		overall_honors = nil
 		overall_probation = nil
+    overall_count_4 = 0
+    overall_count_6_or_above = 0
+    overall_count_3_or_below = 0
 		flag = ""
 
 		self.grades.where(:grading_period => Period.current_grading_period).includes(:standards, :extended_grades).each do |g|
@@ -74,6 +77,7 @@ class Student < ActiveRecord::Base
 						end
 					when "INC"
 						course_probation = true
+            overall_probation = true
 						course_honors = false
 					when "3","3m","2","2m","1","1m"
 						std_count_3_or_below += 1
@@ -90,7 +94,7 @@ class Student < ActiveRecord::Base
 		
 			if g.standards == []
 				#do nothing this is a course without standards and BM
-			elsif (course_count_4 == 1 && course_count_6_or_above >= 1 && course_count_3_or_below == 0)|| course_honors 
+			elsif course_honors 
 				course_honors = true
 				if overall_honors.nil?
 					overall_honors = true
@@ -98,7 +102,7 @@ class Student < ActiveRecord::Base
 					overall_honors = course_honors && overall_honors
 				end
 				flag = flag + " HONORS "
-			elsif course_probation || course_count_3_or_below >= 4
+	    elsif overall_probation || course_probation || course_count_3_or_below >= 4
 				overall_probation = true					
 				overall_honors = false
 				flag = flag + " PROBATION "
@@ -106,12 +110,18 @@ class Student < ActiveRecord::Base
 				overall_honors = false
 				flag = flag + " GOOD "
 			end
+      # tally overall 4 and (6 or 7) count
+      overall_count_4 += course_count_4
+      overall_count_6_or_above += course_count_6_or_above
+      overall_count_3_or_below += course_count_3_or_below
 		end # end traversing a course
 		
 		if overall_honors
 			return "Honors"
+    elsif (overall_count_4 <= overall_count_6_or_above) && ! overall_probation && overall_count_3_or_below == 0
+      return "Honors"
 		elsif overall_probation
-			return "Probation"
+			return "Monitoring"
 		else
 			return "Good"
 		end
