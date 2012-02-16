@@ -5,7 +5,7 @@ class InterimGrade < ActiveRecord::Base
   has_one :student, :through => :schedule
     
   validates_presence_of :mark_id, :on_task, :positive_attitude, :comes_prepared,  :attends_class, :schedule_id, :grading_period
-  validates_numericality_of :mark_id, :schedule_id
+  validates_numericality_of  :mark_id, :schedule_id
 
   attr_accessible :mark_id, :on_task, :positive_attitude, :comes_prepared,  :attends_class, :comment
   

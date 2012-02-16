@@ -96,7 +96,7 @@ class InterimGradesController < ApplicationController
     @interim_grade.destroy
 
     respond_to do |format|
-      format.html { redirect_to interim_grades_url }
+      format.html { redirect_to schedules_url(:book => "Interim") }
       format.json { head :ok }
     end
   end
