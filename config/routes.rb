@@ -7,6 +7,7 @@ Sis2::Application.routes.draw do
 
   resources :schedules do
     get :verification, :on => :collection
+    get :grid, :on => :collection
   end
 
   resources :sections

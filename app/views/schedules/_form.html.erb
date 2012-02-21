@@ -13,28 +13,25 @@
 
   <div class="field">
     <%= f.label :student %><br />
-    <%= f.text_field :student %>
+    <%= f.collection_select :student_id, Student.order('firstName ASC'), :id, :fullName %>
   </div>
   <div class="field">
     <%= f.label :section %><br />
-    <%= f.text_field :section %>
+    <%= f.select :section_id, Section.includes(:course).order(:course_id, :sectionNumber).map { |s| ["#{s.course.name}, #{s.sectionNumber}", s.id] } %>
   </div>
   <div class="field">
     <%= f.label :teacher %><br />
-    <%= f.text_field :teacher %>
+    <%= f.collection_select :teacher_id, Teacher.order('firstName ASC'), :id, :fullName %>
   </div>
   <div class="field">
     <%= f.label :period %><br />
-    <%= f.text_field :period %>
+    <%= f.collection_select :period_id, Period.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :block %><br />
-    <%= f.text_field :block %>
+    <%= f.collection_select :block_id, Block.order(:name), :id, :name %>
   </div>
-  <div class="field">
-    <%= f.label :school_setup %><br />
-    <%= f.text_field :school_setup %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

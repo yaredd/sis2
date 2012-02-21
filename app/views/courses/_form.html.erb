@@ -23,6 +23,13 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
+
+		<%= f.fields_for :sections do |builder| %>  		
+			<%= render "section_fields", :f => builder %>
+		<% end %>
+		<div>
+		<%= link_to_add_fields "Add Section", f, :sections %>
+		</div>
   <div class="actions">
     <%= f.submit %>
   </div>

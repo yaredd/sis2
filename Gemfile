@@ -27,6 +27,8 @@ gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'cancan'
 #gem 'pdfkit'
+gem 'kaminari'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

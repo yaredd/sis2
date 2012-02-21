@@ -93,10 +93,12 @@ class InterimGradesController < ApplicationController
   # DELETE /interim_grades/1.json
   def destroy
     @interim_grade = InterimGrade.find(params[:id])
+    teacher = @interim_grade.schedule.teacher.id
+    block = @interim_grade.schedule.block.id
     @interim_grade.destroy
 
     respond_to do |format|
-      format.html { redirect_to schedules_url(:book => "Interim") }
+      format.html { redirect_to schedules_url({:book => "Interim", :block => block, :teacher => teacher}) }
       format.json { head :ok }
     end
   end
