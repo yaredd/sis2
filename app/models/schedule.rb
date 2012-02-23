@@ -6,7 +6,7 @@ class Schedule < ActiveRecord::Base
   belongs_to :block
   has_many   :grades
 
-
+	validates_presence_of :student_id, :teacher_id, :section_id, :period_id, :block_id
   scope :q1_schedules , where("period_id in (1, 5, 7, 8, 12, 14)")
   
   def self.search(teacher, student, course, section, block, period)
@@ -55,7 +55,7 @@ class Schedule < ActiveRecord::Base
 		end
 		if ! p.blank?
 			condition.empty? ? condition = "" : condition += " AND "
-			condition += "period.name = #{p}"
+			condition += "periods.name = '#{p}'"
 		end
 		condition
 	end

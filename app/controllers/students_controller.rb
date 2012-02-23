@@ -12,8 +12,8 @@ class StudentsController < ApplicationController
     end
   end
   
-  def report_card # listing only Q1 grades. TODO: Remove this hard wired setup
-    @students = Student.order(:firstName,:grade).search(params[:grade]||="6", params[:student_id]||="")
+  def report_card 
+    @students = Student.order(:firstName,:grade).search(params[:grade], params[:student_id])
   end
 
   def warning_grades

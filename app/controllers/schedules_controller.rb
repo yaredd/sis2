@@ -2,7 +2,7 @@ class SchedulesController < ApplicationController
   load_and_authorize_resource
   
   def grid
-  	@schedules = Schedule.page(params[:page]).includes(:student,:teacher,:block, {:section => :course}).search(params[:teacher], params[:student], params[:course], params[:section], params[:block], params[:period]).order("students.grade, students.firstName")
+  	@schedules = Schedule.page(params[:page]).per(20).includes(:student,:teacher,:block, {:section => :course}, :period).search(params[:teacher], params[:student], params[:course], params[:section], params[:block], params[:period]).order("students.grade, students.firstName")
   end
 
   # GET /schedules
