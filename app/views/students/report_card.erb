@@ -9,82 +9,80 @@
    <% end %>
   </fieldset>
 </div>
-<% if params[:grading_period] || params[:student_id] || params[:grade] %> <!-- show results only when user searched by any params -->
+<% if ! (params[:grading_period].blank? && params[:student_id].blank? && params[:grade].blank?) || @students.empty? %> <!-- show results only when user searched by any params -->
 
-<% @students.each do |student| %>
+	<% @students.each do |student| %>
 
-    <div class="print-only">
-	<% if ! student.is_MS? %>
-	<div class="spacer"></div>
-	<% end %>
-
-	</div>
-		  <div class="report_card">
-				<% if params[:grading_period] && params[:grading_period] == "Sem1" && student.is_MS? %>
-					<%= render :partial => "student_standard_report", :locals => {:student => student}  %>
-					<div class="print-only" >
-						<%= render "academic_description" %>
-					</div>
-				<% else %>
-					<% if params[:grading_period] && params[:grading_period] == "Q1" %>
-				<I> Quarter 1 Progress Report: August-October 2011</I>
-					<% elsif params[:grading_period] && params[:grading_period] == "Sem1"%>
-				<I> Semester 1 Progress Report: August-December 2011</I>
-					<% elsif params[:grading_period] && params[:grading_period] == "Q3"%>
+	  <div class="print-only">
+			<% if ! student.is_MS? %>
+			<div class="spacer"></div>
+			<% end %>
+		</div>
+		<div class="report_card">
+			<% if params[:grading_period] && params[:grading_period] == "Sem1" && student.is_MS? %>
+				<%= render :partial => "student_standard_report", :locals => {:student => student}  %>
+				<div class="print-only" >
+					<%= render "academic_description" %>
+				</div>
+			<% else %><!-- print HS reports -->
+				<% if params[:grading_period] && params[:grading_period] == "Q1" %>
+					<I> Quarter 1 Progress Report: August-October 2011</I>
+				<% elsif params[:grading_period] && params[:grading_period] == "Sem1"%>
+					<I> Semester 1 Progress Report: August-December 2011</I>
+				<% elsif params[:grading_period] && params[:grading_period] == "Q3"%>
 					<I> Quarter 3 Progress Report: January-March 2012</I>
-					<% else %>
+				<% else %>
 					<I> Semester 2 Progress Report: January-June 2012</I>
-					<% end %>
-					</h2>
+				<% end %>
+				</h2>
 
-						<div class="aright">Student Name: <b><%= student.fullName %></b><br>        
-					 	Grade: <b><%= student.grade %></b><br>   
-						Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b> <br></div>
-						<div class="aleft"> Absence: <b><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></b><br>                                     
-						Tardies: <b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b><br></div>
-					<table WIDTH=100% CELLPADDING=4 CELLSPACING=0>
-						  <COL WIDTH=64*>
+				<div class="aright">Student Name: <b><%= student.fullName %></b><br>        
+			 	Grade: <b><%= student.grade %></b><br>   
+				Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b> <br></div>
+				<div class="aleft"> Absence: <b><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></b><br>                                     
+				Tardies: <b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b><br></div>
+				<table WIDTH=100% CELLPADDING=4 CELLSPACING=0>
 						<COL WIDTH=64*>
-						<COL WIDTH=64*>
-						<COL WIDTH=64*>
-						<tr>
-							<th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
-						        Subject
-						      </th>
-							<th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
-						        Teacher
-						      </th>
-							<th WIDTH=15% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
-						        Achievement
-						      </th>
-							<th WIDTH=15% STYLE="border: 1px solid #000000; padding: 0.04in">
-						        Effort
-						      </th>
-						</tr>
+					<COL WIDTH=64*>
+					<COL WIDTH=64*>
+					<COL WIDTH=64*>
+					<tr>
+						<th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						      Subject
+						    </th>
+						<th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						      Teacher
+						    </th>
+						<th WIDTH=15% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						      Achievement
+						    </th>
+						<th WIDTH=15% STYLE="border: 1px solid #000000; padding: 0.04in">
+						      Effort
+						    </th>
+					</tr>
 
-							<% grades_by_period = Grade.by_period(params[:grading_period]||Period.current_grading_period).joins(:student).merge(Student.where(:id => student.id)) %>
-						  <% grades_by_period.each do |grade| %>
-						      <tr VALIGN=TOP>
-						          <td>
-						              <%= grade.schedule.section.course.description %>
-						          </td>
-						          <td>
-						              <%= grade.schedule.teacher.fullName %>
-						          </td>
-						          <td class="put_center">
-						              <%= grade.mark.try(:name) %>
-						          </td>
-						          <td class="put_center">
-						              <%= grade.effort.try(:name) %>
-						          </td>
-						      </tr>
-						  <% end %>
-					</table>
-			</div><!--report_card ends here-->
-			</div>
+						<% grades_by_period = Grade.by_period(params[:grading_period]||Period.current_grading_period).joins(:student).merge(Student.where(:id => student.id)) %>
+						<% grades_by_period.each do |grade| %>
+						    <tr VALIGN=TOP>
+						        <td>
+						            <%= grade.schedule.section.course.description %>
+						        </td>
+						        <td>
+						            <%= grade.schedule.teacher.fullName %>
+						        </td>
+						        <td class="put_center">
+						            <%= grade.mark.try(:name) %>
+						        </td>
+						        <td class="put_center">
+						            <%= grade.effort.try(:name) %>
+						        </td>
+						    </tr>
+						<% end %>
+				</table>
+		</div><!--report_card ends here-->
 
-			<div class="page-break" ></div>
-			<% end %><!-- end printing report card -->
+		<div class="page-break" ></div>
+		<% end %><!-- end HS report card -->
 
 	<% end %><!-- end iterating @students -->
 <% else %>
