@@ -1,0 +1,6 @@
+<%= form_tag request.url , :method => :get do %>
+  Teacher: <%= select_tag :teacher, options_from_collection_for_select(Teacher.order('firstName ASC'), :id, :fullName, params[:teacher]), :include_blank => true %>&nbsp;&nbsp;Course: <%= text_field_tag :course, params[:course] %>&nbsp;&nbsp;Section No.:<%= text_field_tag :section, params[:section], :size => 2 %><br />
+  Student: <%= select_tag :student, options_from_collection_for_select(Student.order('firstName ASC'), :id, :fullName, params[:student]), :include_blank => true %>&nbsp;&nbsp;Block: <%= select_tag :block, options_for_select([[''],['A'],['B'],['C'],['D'],['E'],['F'],['G'],['H'],['I'],['J']], params[:block]) %>&nbsp;&nbsp;Grading Period: <%= select_tag :period, options_for_select([[""],["All"],["Sem1"],["Sem2"],["Q1"],["Q2"],["Q3"],["Q4"]], params[:period]) %><br />
+	<%= submit_tag "apply" %>
+<% end %>
+
