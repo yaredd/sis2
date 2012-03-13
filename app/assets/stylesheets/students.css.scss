@@ -288,7 +288,14 @@ div.cover_h_bar2{
 		  margin-top: 2%;
 		  margin-bottom: 2%;
 	}
-	
+	#search {
+			float: left;
+			margin-right: 20%;
+	}
+
+	#bottom_content{
+			clear: both;
+	}
 }
 @media print {
     .page-break  { display:block; page-break-before:always; }

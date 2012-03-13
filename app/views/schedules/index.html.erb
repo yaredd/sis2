@@ -18,11 +18,21 @@
     <% end %>
   </fieldset>
 </div>
-
-<% if (params[:book] == "Quarter"  || params[:book].nil?) %>
-  <%= render "quarter_grade_book", :collection => @schedules %>
-<% elsif params[:book] == "Interim" %>
-	<%= render "interim_grade_book", :collection => @schedules %>
+<% if current_user.role? :teacher %>
+	<div id="side_bar">
+		Courses taught
+		<ul>
+			<% Teacher.find_by_login(current_user.login).sections.uniq.each do |s| %>
+				<li><%= link_to (s.course.name + ' '+ s.sectionNumber.to_s),  edit_section_path(s)%></li>
+			<% end %>
+		</ul>
+	</div>
 <% end %>
-
+<div id="bottom_content">
+	<% if (params[:book] == "Quarter"  || params[:book].nil?) %>
+		<%= render "quarter_grade_book", :collection => @schedules %>
+	<% elsif params[:book] == "Interim" %>
+		<%= render "interim_grade_book", :collection => @schedules %>
+	<% end %>
+</div>
 
