@@ -1,7 +1,7 @@
 class Teacher < ActiveRecord::Base
   has_many :schedules
   has_many :students, :through => :schedules
-  has_many :sections, :through => :schedules, :include => :course, :conditions => ['schedules.period_id in (3,5,7,10,14)']
+  has_many :sections, :through => :schedules, :include => :course
 
   validates_presence_of :login, :firstName, :lastName, :staffId
 
@@ -10,8 +10,10 @@ class Teacher < ActiveRecord::Base
   end
   
   def courses_taught
+		
+		sections_taught = self.schedules.by_grading_period(Period.current_grading_period).sections
   	courses = []
-  	self.sections.each do |s|
+  	sections_taught.each do |s|
   		courses << s.course
   	end
   	courses.uniq
