@@ -1,0 +1,23 @@
+<%= form_for(@section_comment) do |f| %>
+  <% if @section_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@section_comment.errors.count, "error") %> prohibited this section_comment from being saved:</h2>
+
+      <ul>
+      <% @section_comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<%= f.hidden_field :section_id %>
+	<%= f.hidden_field :teacher_id %>
+	<%= f.hidden_field :period %>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

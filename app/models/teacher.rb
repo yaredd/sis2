@@ -9,17 +9,15 @@ class Teacher < ActiveRecord::Base
     [firstName, lastName].join(' ')
   end
   
-  def courses_taught
-		
-		sections_taught = self.schedules.by_grading_period(Period.current_grading_period).sections
-  	courses = []
-  	sections_taught.each do |s|
-  		courses << s.course
+  def sections_taught		
+	 	sec = []
+  	self.schedules.by_grading_period(Period.current_grading_period).each do |s|
+  		sec << s.section
   	end
-  	courses.uniq
+  	sec.uniq
   end
   
   def teaches_course? course
-  	courses_taught.include? Course.find_by_name("#{course}")
+  	sections_taught.include? Course.find_by_name("#{course}")
   end
 end

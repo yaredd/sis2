@@ -290,11 +290,16 @@ div.cover_h_bar2{
 	}
 	#search {
 			float: left;
-			margin-right: 20%;
+			margin-right: 10%;
+			margin-bottom: 10px;
+			
 	}
-
+	#side_bar {
+			float: right;
+			margin-right: 30%;
+	}
 	#bottom_content{
-			clear: both;
+			float: left;
 	}
 }
 @media print {

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111212003025) do
+ActiveRecord::Schema.define(:version => 20120316020535) do
 
   create_table "bench_marks", :force => true do |t|
     t.string  "name"
@@ -136,6 +136,18 @@ ActiveRecord::Schema.define(:version => 20111212003025) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "section_comments", :force => true do |t|
+    t.integer  "section_id"
+    t.integer  "teacher_id"
+    t.string   "period"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "section_comments", ["section_id"], :name => "index_section_comments_on_section_id"
+  add_index "section_comments", ["teacher_id"], :name => "index_section_comments_on_teacher_id"
 
   create_table "sections", :force => true do |t|
     t.integer  "course_id"

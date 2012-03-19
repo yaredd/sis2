@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Section:</b>
+  <%= @section_comment.section %>
+</p>
+
+<p>
+  <b>Teacher:</b>
+  <%= @section_comment.teacher %>
+</p>
+
+<p>
+  <b>Period:</b>
+  <%= @section_comment.period %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @section_comment.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_section_comment_path(@section_comment) %> |
+<%= link_to 'Back', section_comments_path %>

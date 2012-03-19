@@ -13,6 +13,10 @@ class Ability
        		can :warning_grades, Student
        		can :report_card, Student
        elsif user.role? :teacher
+       		can :create, SectionComment
+       		can :update, SectionComment do |sc|
+       			user.login == sc.teacher.try(:login)
+       		end
           can :read, Schedule
           can :update, Grade do |g|
             g.schedule.teacher.try(:login) == user.login && g.grading_period == Period.current_grading_period

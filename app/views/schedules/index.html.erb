@@ -18,16 +18,28 @@
     <% end %>
   </fieldset>
 </div>
-<% if current_user.role? :teacher %>
 	<div id="side_bar">
 		Courses taught
 		<ul>
-			<% Teacher.find_by_login(current_user.login).sections.uniq.each do |s| %>
-				<li><%= link_to (s.course.name + ' '+ s.sectionNumber.to_s),  edit_section_path(s)%></li>
+			<% if current_user.role? :teacher %>
+				<% t = Teacher.find_by_login(current_user.login) %>
+				<% t.sections_taught.each do |s| %>
+					<% sc = SectionComment.filed?(s.id, Period.current_grading_period) %>
+					<% p_hash = {:section_id => s.id, :teacher_id => t.id, :period => Period.current_grading_period } %>
+					<li><%= link_to s.course.name, sc.blank? ? new_section_comment_url(p_hash) : edit_section_comment_path(sc) %></li>
+				<% end %>
+
+			<% elsif current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
+				<% t = params[:teacher].blank? ? Teacher.order("firstName").first : Teacher.find(params[:teacher]) %>
+				<% t.sections_taught.each do |s| %>
+					<% sc = SectionComment.filed?(s.id, Period.current_grading_period) %>
+					<% p_hash = {:section_id => s.id, :teacher_id => t.id, :period => Period.current_grading_period } %>
+					<li><%= link_to s.course.name, sc.blank? ? new_section_comment_url(p_hash) : edit_section_comment_path(sc) %></li>
+				<% end %>
 			<% end %>
 		</ul>
 	</div>
-<% end %>
+	
 <div id="bottom_content">
 	<% if (params[:book] == "Quarter"  || params[:book].nil?) %>
 		<%= render "quarter_grade_book", :collection => @schedules %>
