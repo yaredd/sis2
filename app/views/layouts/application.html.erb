@@ -11,16 +11,16 @@
     <% if current_user.nil? %>
       <%= link_to "login", new_user_session_path %>
     <% else %>
-      You are logged in as <%= current_user.login %> <%= button_to "logout", destroy_user_session_path, :method => :delete %>
+      You are logged in as <%= current_user.login %> <%= link_to "logout", destroy_user_session_path, :method => :delete %>
         <hr>
 
             <% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
-            <%= link_to "Report Cards", report_card_students_path %> | 
-            <%= link_to "Interim Reports", interim_grades_path %> | 
-            <%= link_to "Warning Grades", warning_grades_students_path %> |
-            <%= link_to "Verification", verification_schedules_path %> |
-            <%= link_to "Courses", courses_path %> |
-	    <%= link_to "Students", students_path %> |
+		          <%= link_to "Schedule", grid_schedules_path %> | 
+		          <%= link_to "Report Cards", report_card_students_path %> | 
+		          <%= link_to "Interim Reports", interim_grades_path %> | 
+		          <%= link_to "Verification", verification_schedules_path %> |
+		          <%= link_to "Courses", courses_path %> |
+			  			<%= link_to "Students", students_path %> |
             <% end %>
             
             <%= link_to "Teacher Grade Book", schedules_path %> 

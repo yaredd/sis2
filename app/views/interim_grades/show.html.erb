@@ -37,6 +37,6 @@
   <b>Comment:</b>
   <%= @interim_grade.comment %>
 </p>
-
+<%= link_to 'Edit', edit_interim_grade_path %>&nbsp;&nbsp;|&nbsp;&nbsp;
 
 <%= link_to 'Back to Grade Book', schedules_path(:block => @interim_grade.schedule.block_id, :book => "Interim", :teacher => @interim_grade.schedule.teacher.id ) %>

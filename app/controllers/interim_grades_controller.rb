@@ -7,11 +7,11 @@ class InterimGradesController < ApplicationController
   	if ! ( nilOrEmpty?(params[:student]) | nilOrEmpty?(params[:grade]) )
     	@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.where("students.grade = ? and  students.id = ?", params[:grade].to_i, params[:student].to_i).order(:grade, :firstname))
     elsif ! nilOrEmpty?(params[:student]) & nilOrEmpty?(params[:grade])
-    	@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.where("students.id = ?", params[:student].to_i).order(:grade, :firstname))
+    	@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.id = ?", params[:student].to_i).order(:grade, :firstname))
 		elsif  nilOrEmpty?(params[:student]) & ! nilOrEmpty?(params[:grade])
-    	@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.where("students.grade = ?", params[:grade].to_i).order(:grade, :firstname))
+    	@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.grade = ?", params[:grade].to_i).order(:grade, :firstname))
 		else
-			@interim_grades = InterimGrade.joins(:schedule).joins(:student).merge(Student.order(:grade, :firstname))
+			@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.order(:grade, :firstname))
 		end
 		
 		s = []
@@ -93,10 +93,12 @@ class InterimGradesController < ApplicationController
   # DELETE /interim_grades/1.json
   def destroy
     @interim_grade = InterimGrade.find(params[:id])
+    teacher = @interim_grade.schedule.teacher.id
+    block = @interim_grade.schedule.block.id
     @interim_grade.destroy
 
     respond_to do |format|
-      format.html { redirect_to interim_grades_url }
+      format.html { redirect_to schedules_url({:book => "Interim", :block => block, :teacher => teacher}) }
       format.json { head :ok }
     end
   end

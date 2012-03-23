@@ -41,9 +41,10 @@ for <%= @interim_grade.schedule.student.fullNameGrade %> <br /><%= @interim_grad
     <%= f.text_area :comment %>
   </div>
     <div class="actions">
-      <%= f.submit 'Save', :disable_with => "Saving ..." %>
+      <%= f.submit 'Save', :disable_with => "Saving ..." %> &nbsp;&nbsp;<%= link_to "DELETE", @interim_grade, :method => :delete , :confirm => "Are you sure?" %>
     </div>
+<% end %>
 
   <%= link_to "Back", :back %>
-<% end %>
+
 

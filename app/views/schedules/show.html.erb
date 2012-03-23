@@ -2,31 +2,31 @@
 
 <p>
   <b>Student:</b>
-  <%= @schedule.student %>
+  <%= @schedule.student.fullName %>
 </p>
 
 <p>
-  <b>Section:</b>
-  <%= @schedule.section %>
+  <b>Course/b>
+  <%= @schedule.section.course.name %> section no. <%= @schedule.section.sectionNumber %>
 </p>
 
 <p>
   <b>Teacher:</b>
-  <%= @schedule.teacher %>
+  <%= @schedule.teacher.fullName %>
 </p>
 
 <p>
   <b>Period:</b>
-  <%= @schedule.period %>
+  <%= @schedule.period.name %>
 </p>
 
 <p>
   <b>Block:</b>
-  <%= @schedule.block %>
+  <%= @schedule.block.name %>
 </p>
 
 
 
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
-<%= link_to 'Back', schedules_path %>
+<%= link_to 'Back', grid_schedules_path %>

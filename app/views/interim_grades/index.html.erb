@@ -14,18 +14,64 @@
 <% @interim_grades.each do |interim_grade| %>
 
 <div class="print-only">
-	<div>
-		<img src="eagle logo.jpg" width="20%" height="20%">
-	</div>
-	<p>
-	<h3 align="center">INTERIM REPORT &nbsp;&nbsp; NOVEMBER 2011</h3>
-	</p>
-	<p>
-		Dear Parents,<br />
+		<div style="float: left; height:80px">
+			<img src="eagle logo small.jpg" width="105px" height="80px">
+		</div>
+	<% if Period.current_period == "Q3" %>
+			<% if interim_grade.student.is_MS? %>
+					<div style="vertical-align: middle; text-align: center; font-size: 14px;">
+		          <span style="font-weight: bold">
+		              MIDDLE SCHOOL INTERIM REPORT
+		              <br>FEBRUARY 2012
+		          </span><br>
+		          <span style="font-style:italic">
+		              "Accountability for learning is shared by
+		              <br>students, parents, and teachers"
+		          </span>
+						</div><br>
+            <div style="clear: both">
+                <p>Dear Parents,</p>
+                <p>
+                    Quarter 3 ends on 16 March 2012 for Middle School.
+                    This interim report indicates the effort and achievement the student has demonstrated thus far.
+                    Students receiving this interim report are demonstrating the need for intervention or support in effort and/or achievement, for this course.
+                </p>
+                <p>
+                    Next steps:  parents (or guardians) should respond to this report in the following manner: 
+                    <ol>
+                        <li>Discuss the difficulties of this course with your child; and</li>
+                        <li>Contact the teacher to arrange a meeting with all parties (student, parent, and teacher).</li>
+                    </ol>
+                </p>
+            </div>
+			<% else %>
+					<div style="vertical-align: middle; text-align: center; font-size: 14px;">
+		          <span style="font-weight: bold">
+		              HIGH SCHOOL INTERIM REPORT
+		              <br>FEBRUARY 2012
+		          </span></div>
 
-		Semester 1 ends on 15 December 2011 for Middle and High School.  This interim report indicates the effort and achievement the student has demonstrated thus far. 
-	</p>
-	<br />
+            <div style="clear: both">
+                Dear Parents,
+                <p>
+                    Quarter 3 ends on March 16 for Middle and High School.
+                    This interim report indicates the effort and achievement the student has demonstrated,
+                    since the semester began in January.
+                </p>
+                <p>
+                    If you wish to contact the teacher before Parent-Teacher conferences in late March,
+                    please use the email address of the teacher or phone the Middle/High School Office (0113711544). (All email addresses at ICS are <i>first.last</i>@icsaddis.edu.et)
+                </p>
+            </div>
+			<% end %>
+	<% else %>
+		<h3 align="center">INTERIM REPORT &nbsp;&nbsp; NOVEMBER 2011</h3>
+
+		<p>
+			Dear Parents,<br />
+			Semester 1 ends on 15 December 2011 for Middle and High School.  This interim report indicates the effort and achievement the student has demonstrated thus far. 
+		</p>
+	<% end %>
 	<table width="100%">
 		<tr>
 			<td>
@@ -43,7 +89,7 @@
 		</tr>
 		<tr>
 			<td>
-				Course Tile
+				Course Title
 			</td>
 			<td class="put_center">
 				<b><%= interim_grade.schedule.section.course.description %></b>
@@ -56,18 +102,25 @@
 			</td>
 	</table>
 	<p></p>
+	<% if interim_grade.student.is_MS? %>
+            <span style="font-size: 12px; font-weight: bold;">
+                EFFORT:
+            </span>
+	<% end %>
 	<table width="100%">
+	<% if  ! interim_grade.student.is_MS? %>
 		<tr>
 			<td>
-				Achievement
+				Achievement thus far:
 			</td>
 			<td class="put_center">
 				<b><%= interim_grade.mark.name %></b>
 			</td>
 		</tr>
+	<% end %>
 		<tr>
 			<td colspan="2">
-				<b>Effort is the combination of attitudes and behaviors that help Middle and High School students learn and study successfully in school. Each area is important for a student to demonstrate academic achievement at ICS.</b>
+				<b>Effort is the combination of attitudes and behaviors that help Middle School students learn and study successfully. Each area is important for a student to demonstrate academic achievement at ICS.</b>
 			</td>
 		</tr>
 		<tr>
@@ -105,24 +158,55 @@
 	
 	</table>
 	<p></p>
-	<p>
-	Comment:<br />
-	<%= interim_grade.comment %>
-	</p>
-	<p></p>
+
+	<% if Period.current_period == "Q3" %>
+			<% if interim_grade.student.is_MS? %>
+            <p><b>
+                ACHIEVEMENT:<br />
+            </b>
+            The student's achievement grade is a direct measure of the competence a student has shown in terms of skills, knowledge, and understanding of the course.
+            </p>
+			<% else %>
+            <span style="font-size: 14px; font-weight: bold;">Achievement</span> and <span style="font-size: 14px; font-weight: bold;">Effort</span>
+            grades for Quarter 3 will be issued at Parent-Teacher Conferences, March 29-30 in the gymnasium, where you may collect the student's report card before meeting with teachers.
+            <br />
+			<% end %>
+            <p style="margin-bottom: 0px"><b>
+                Comments about achievement:
+            </b></p>
+	<% else %>
+		Comment:<br />
+	<% end %>
+            <table width=100% style="border: solid thin">
+                <tr style="height:50px">
+                    <td style="width:100%; vertical-align: text-top">
+											<%= interim_grade.comment %>
+										</td>
+                </tr>
+            </table>
+	<% if ! interim_grade.student.is_MS? %>
+		<br />
+		<div style="float: left">No appointments are needed for the two sessions:</div>
+		<div style="margin-right: 1.4in; float: right">Thursday March 29 (4:00-8:00 PM) or <br>Friday March 30 (12.30-3:30 PM)</div>
+	<% end %>
+
 	<div id="signature">
 		<% if ["6", "7", "8"].include? interim_grade.student.grade %>
 				<div class="put_center">
 					<img src="deron.jpg" width="20%" height="20%"><br />
 					Deron Marvin<br />
 					Middle School Principal
-				</div>
+				</div><br /><br />
+            <div style="text-align: center; font-style:italic; color: grey">
+                Student-led conferences will be held 29 and 30 March 2012 - please save the date.
+            </div>
 		<% else %>
 				<div class="put_center">
 					<img src="joyce.jpg" width="20%" height="20%"><br />
 					Joyce Halsey<br />
 					High School Principal
 				</div>
+
 		<% end %>
 	</div>
 </div>

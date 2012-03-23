@@ -1,0 +1,29 @@
+<h2>Schedules</h2>
+<hr>
+<%= render 'search' %>
+<hr>
+<%= link_to 'Add Schedule', new_schedule_path %> <br />
+<%= raw(page_entries_info @schedules )%><br/><%= paginate @schedules %>
+<table class="grid_view">
+	<tr>
+		<th>Student</th>
+		<th>Teacher</th>
+		<th>Course</th>
+		<th>Section</th>
+		<th>Block</th>
+		<th>Period</th>
+		<td></td>
+	</tr>
+	<% @schedules.each do |s| %>
+		<tr>
+			<td><%= s.student.fullNameGrade %></td>
+			<td><%= s.teacher.fullName %></td>
+			<td><%= s.section.course.name.titleize %></td>
+			<td><%= s.section.sectionNumber %></td>
+			<td><%= s.block.name.capitalize %></td>
+			<td><%= s.period.name.titleize %></td>
+			<td><%= link_to "edit", edit_schedule_path(s)%></td>
+		</tr>
+	<% end %>
+</table>
+<%= paginate @schedules, :remote => true %>

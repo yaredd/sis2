@@ -292,7 +292,7 @@ div.cover_h_bar2{
 }
 @media print {
     .page-break  { display:block; page-break-before:always; }
-    @page { size: 8.27in 11.69in; margin-top: 8in; margin-left: 0.39in; margin-right: 0.39in; margin-bottom: 0.45in; }
+    @page { size: 8.27in 11.69in; margin-top: 8in; margin-left: 0.39in; margin-right: 0.39in; margin-bottom: 0.25in; }
    div.spacer { height:260px; }
     div.back-page td {font-size: .7em}
 }

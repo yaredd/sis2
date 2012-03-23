@@ -1,5 +1,9 @@
 class SchedulesController < ApplicationController
   load_and_authorize_resource
+  
+  def grid
+  	@schedules = Schedule.page(params[:page]).per(20).includes(:student,:teacher,:block, {:section => :course}, :period).search(params[:teacher], params[:student], params[:course], params[:section], params[:block], params[:period]).order("students.grade, students.firstName")
+  end
 
   # GET /schedules
   # GET /schedules.json
@@ -8,12 +12,12 @@ class SchedulesController < ApplicationController
       params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
       params[:block] = 1 unless ! params[:block].nil?
 
-      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block]).joins(:student).merge(Student.order(:firstName))
+      @schedules = Schedule.by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block]).joins(:student).merge(Student.order(:firstName))
     elsif current_user.role? :teacher
       
       @teacher = Teacher.find_by_login(current_user.login)
       
-      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||=Period.current_grading_period).where("schedules.teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||=Block.by_teacher(@teacher.id).first.id).joins(:student).merge(Student.order(:firstName))
+      @schedules = Schedule.by_grading_period(params[:grading_period]||=Period.current_grading_period).where("schedules.teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||=Block.by_teacher(@teacher.id, params[:grading_period]||=Period.current_grading_period).first.id).joins(:student).merge(Student.order(:firstName))
     end
 
 
@@ -25,7 +29,7 @@ class SchedulesController < ApplicationController
 
   def verification
       params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
-      @schedules = Schedule.schedule_by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).joins(:student).merge(Student.order(:firstName))
+      @schedules = Schedule.by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).joins(:student).merge(Student.order(:firstName))
   end
 
   # GET /schedules/1
