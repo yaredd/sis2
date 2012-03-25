@@ -12,7 +12,7 @@
   </fieldset>
 </div>
 
-<% Block.by_teacher(params[:teacher]).each do |b| %>
+<% Block.by_teacher(params[:teacher], Period.current_grading_period).each do |b| %>
 <hr />
     <h2><%= Teacher.find(params[:teacher]).fullName + " Block " + b.name %></h2><h2> <%= Period.current_grading_period %> Grade Verification </h2>
 <hr />

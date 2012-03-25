@@ -288,7 +288,18 @@ div.cover_h_bar2{
 		  margin-top: 2%;
 		  margin-bottom: 2%;
 	}
-	
+	#search {
+			width: 40%;
+	}
+	#side-bar {
+			margin-right: 30%;
+			float: right;
+
+	}
+	#left_content{
+			float: left;
+			width: 60%;
+	}
 }
 @media print {
     .page-break  { display:block; page-break-before:always; }

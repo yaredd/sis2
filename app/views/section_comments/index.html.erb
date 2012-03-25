@@ -1,0 +1,29 @@
+<h1>Listing section_comments</h1>
+
+<table>
+  <tr>
+    <th>Section</th>
+    <th>Teacher</th>
+    <th>Period</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @section_comments.each do |section_comment| %>
+  <tr>
+    <td><%= section_comment.section %></td>
+    <td><%= section_comment.teacher %></td>
+    <td><%= section_comment.period %></td>
+    <td><%= section_comment.comment %></td>
+    <td><%= link_to 'Show', section_comment %></td>
+    <td><%= link_to 'Edit', edit_section_comment_path(section_comment) %></td>
+    <td><%= link_to 'Destroy', section_comment, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Section comment', new_section_comment_path %>

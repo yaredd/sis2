@@ -6,13 +6,17 @@ class Ability
        if user.role? :super_admin
           can :manage, :all
        elsif user.role? :admin
-          can :manage, [Schedule, Teacher, Student, Grade, InterimGrade, Period, Block, Mark, Effort, SchoolSetup, Course]
+          can :manage, [Schedule, Teacher, Student, Grade, InterimGrade, Period, Block, Mark, Effort, SchoolSetup, Course, SectionComment]
        elsif user.role? :admin_ro
        		can :read, :all
        		can :verification, Schedule
        		can :warning_grades, Student
        		can :report_card, Student
        elsif user.role? :teacher
+       		can :create, SectionComment
+       		can :update, SectionComment do |sc|
+       			user.login == sc.teacher.try(:login)
+       		end
           can :read, Schedule
           can :update, Grade do |g|
             g.schedule.teacher.try(:login) == user.login && g.grading_period == Period.current_grading_period

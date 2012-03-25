@@ -1,28 +1,55 @@
+<div id="side-bar">
+	Courses taught
+	<ul>
+		<% if current_user.role? :teacher %>
+			<% t = Teacher.find_by_login(current_user.login) %>
+			<% t.sections_taught.each do |s| %>
+				<% sc = SectionComment.filed?(s.id, Period.current_grading_period) %>
+				<% p_hash = {:section_id => s.id, :teacher_id => t.id, :period => Period.current_grading_period } %>
+				<li><%= link_to s.course.name + " - Block " + s.schedules.first.block.name, sc.blank? ? new_section_comment_url(p_hash) : edit_section_comment_path(sc) %></li>
+			<% end %>
 
-<div id="search" class="non-print">
-  <fieldset>
-    <legend>Select Grade Book</legend>
-    <%= form_tag request.url , :method => :get do %>
-      <% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
-        Teacher: <%= select_tag :teacher, options_from_collection_for_select(Teacher.order('firstName ASC'), :id, :fullName, params[:teacher]), :include_blank => false %><br />
-        Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(params[:teacher], params[:grading_period]||=Period.current_grading_period), :id, :name, params[:block]), :include_blank => false %><br />
-      <% else %>
-      Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(@teacher.id, params[:grading_period]||=Period.current_grading_period), :id, :name, params[:block]), :include_blank => false %><br />
-      <% end %>
-      Grading Period: <%= select_tag "grading_period", options_for_select([["Q1"], ["Q2"], ["Sem1"], ["Q3"]], params[:grading_period]||=Period.current_grading_period) %><br />
-      <%= radio_button_tag(:book, "Quarter", (params[:book] == "Quarter"  || params[:book].nil?) ? :checked : nil) %>
-	  <%= label_tag(:q_grade, "Quarter/Semester Grade Book") %>
-	  <%= radio_button_tag(:book, "Interim", params[:book] == "Interim" ? :checked : nil ) %>
-	  <%= label_tag(:i_grade, "Interim Grade Book") %><br />
-      <%= submit_tag "apply" %>
-    <% end %>
-  </fieldset>
+		<% elsif current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
+			<% t = params[:teacher].blank? ? Teacher.order("firstName").first : Teacher.find(params[:teacher]) %>
+			<% t.sections_taught.each do |s| %>
+				<% sc = SectionComment.filed?(s.id, Period.current_grading_period) %>
+				<% p_hash = {:section_id => s.id, :teacher_id => t.id, :period => Period.current_grading_period } %>
+				<li><%= link_to s.course.name + " - Block " + s.schedules.first.block.name, sc.blank? ? new_section_comment_url(p_hash) : edit_section_comment_path(sc) %></li>
+			<% end %>
+		<% end %>
+	</ul>
 </div>
 
-<% if (params[:book] == "Quarter"  || params[:book].nil?) %>
-  <%= render "quarter_grade_book", :collection => @schedules %>
-<% elsif params[:book] == "Interim" %>
-	<%= render "interim_grade_book", :collection => @schedules %>
-<% end %>
+<div id="left-content">
+	<div id="search" class="non-print">
+		<fieldset>
+		  <legend>Select Grade Book</legend>
+		  <%= form_tag request.url , :method => :get do %>
+		    <% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
+		      Teacher: <%= select_tag :teacher, options_from_collection_for_select(Teacher.order('firstName ASC'), :id, :fullName, params[:teacher]), :include_blank => false %><br />
+		      Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(params[:teacher], params[:grading_period]||=Period.current_grading_period), :id, :name, params[:block]), :include_blank => false %><br />
+		    <% else %>
+		    Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(@teacher.id, params[:grading_period]||=Period.current_grading_period), :id, :name, params[:block]), :include_blank => false %><br />
+		    <% end %>
+		    Grading Period: <%= select_tag "grading_period", options_for_select([["Q1"], ["Q2"], ["Sem1"], ["Q3"]], params[:grading_period]||=Period.current_grading_period) %><br />
+		    <%= radio_button_tag(:book, "Quarter", (params[:book] == "Quarter"  || params[:book].nil?) ? :checked : nil) %>
+			<%= label_tag(:q_grade, "Quarter/Semester Grade Book") %>
+			<%= radio_button_tag(:book, "Interim", params[:book] == "Interim" ? :checked : nil ) %>
+			<%= label_tag(:i_grade, "Interim Grade Book") %><br />
+		    <%= submit_tag "apply" %>
+		  <% end %>
+		</fieldset>
+	</div>
+
+
+	
+	<div>
+		<% if (params[:book] == "Quarter"  || params[:book].nil?) %>
+			<%= render "quarter_grade_book", :collection => @schedules %>
+		<% elsif params[:book] == "Interim" %>
+			<%= render "interim_grade_book", :collection => @schedules %>
+		<% end %>
+	</div>
+</div>
 
 
