@@ -3,7 +3,7 @@
     <legend>Search Student</legend>
     <%= form_tag request.url , :method => :get do %>
       Student: <%= select_tag :student, options_from_collection_for_select(@students, :id, :fullName, params[:student]), :include_blank => true %><br />
-      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
+      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8"], params[:grade]), :include_blank => true %><br />
       <%= submit_tag "apply" %>
    <% end %>
   </fieldset>
