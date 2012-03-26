@@ -1,5 +1,3 @@
-
-
 <div id="search" class="non-print">
   <fieldset>
     <legend>Search Student</legend>
@@ -13,7 +11,7 @@
 
 <% if Period.current_period == "Q3" %>
   <% @students.each do |student| %>
-    <%= render :partial => "q3_ms_interim_report_card", :locals => {:student => student} %>
+    <%= render :partial => "q3_ms_interim_report_card", :locals => {:student => student, :interim_grades => @interim_grades.where("students.id = ?", student.id)} %>
   <% end %>
 <% else %>
 

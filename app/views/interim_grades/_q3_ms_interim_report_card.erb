@@ -1,68 +1,104 @@
-<% grades_by_period = InterimGrade.by_period(params[:grading_period]||Period.current_grading_period).includes({:schedule => [ {:section => [ :course  ] }]}).where("students.id = ?", student.id) %>
+
 
 <div class="print-only">
 <%= render :partial => "q3_ms_front_cover_top", :locals => {:student => student} %>
 	<div class="q3_ms_report_cover1">
 		Grade <b><%= student.grade %></b><br />
 		Year <b>2012</b><br />
-		Date <b>30 March 2012</b>
+		Date <b>29 March 2012</b>
 	</div>
 	<div class="q3_ms_report_cover2">
 		Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b><br />
 		Principal's Signature: <img style=" border-bottom: solid thin;" src="../deron.jpg" width="20%"><br />
-		Date: 30 March 2012</b>
+		Date: 29 March 2012</b>
 	</div>
 </div>
+<div class="print-only">
+
 <h3>Progress Report</h3>
 <p>The Progress Report indicates the child’s progress toward the end of the semester standards and benchmarks - essentially a "snapshot". Effort towards these benchmarks are specified, as well as any specific comments concerning achievement. Achievement marks (1-7) are not indicated, as many of the benchmarks are still in progress. In the report, each course instructor provides a description of topics taught, as well as intended topics for the remainder of the school year.</p>
-<div class="print-only">
-	<p style="font-size: 9px;">* Semester 2 (end-of-year) report will be published and available 15 June 2012.</p>
-	<br /><br />
-	<hr>
-  <img  class="report_cover3" src="../report_footer.jpg" width="85%">
+	<div id="q3_ms_footer">
+		<p style="font-size: 9px;"><i> Semester 2 (end-of-year) report will be published and available 15 June 2012.</i></p>
+		<br /><br />
+		<hr>
+		<img  class="report_cover3" src="../report_footer.jpg" width="85%">
+	</div>
 </div>
 <div class="page-break" ></div>
 
-<% grades_by_period.each do |grade| %>
-			<div class="report_header_left">
-				Student: <b><%= student.fullName %></b><br />
+<% interim_grades.each do |grade| %>
+	<div class="q3_ report_header_left">
+		Student: <b><%= student.fullName %></b><br />
 
-			</div>
+	</div>
 
+	<div class="report_header_right">
+		Grade: <b><%= student.grade %></b><br />
 
-			<div class="report_header_right">
-				Grade: <b><%= student.grade %></b><br />
+	</div>
 
-			</div>
+	<div class="report_grades">
+		<hr>
+		<div class="report_header_left">
+			Course: <b><%= grade.schedule.section.course.description %></b><br />
 
-			<div class="report_grades">
-				<hr>
-				<div class="report_header_left">
-					Course: <b><%= grade.schedule.section.course.description %></b><br />
-					Effort: <b><%= grade.effort.try(:name) %></b>
-				</div>
-				<div class="report_header_right">
-					Teacher: <b><%= grade.schedule.teacher.fullName %></b>
-				</div>
-				<div class="report_grades">
-				<% grade.schedule.section.course.standards.each do |std| %>
-					<br />
-					<b><%= std.name %></b>
+		</div>
+		<div class="report_header_right">
+			Teacher: <b><%= grade.schedule.teacher.fullName %></b>
+		</div>
+		<br /><br />
+		
+		<div class="report_grades">
+			<table width="100%">
+				<tr>
+					<td colspan="2">
+						<b>Effort is the combination of attitudes and behaviors that help Middle School students learn and study successfully. Each area is important for a student to demonstrate academic achievement at ICS.</b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						On task; engaged with assigned learning without teacher influence being necessary.
+					</td>
+					<td class="put_center">
+						<b><%= grade.on_task %></b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Shows a positive and respectful attitude toward classroom expectations and rules, with no teacher influence required.
+					</td>
+					<td class="put_center">
+						<b><%= grade.positive_attitude %></b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Comes to class prepared in every way expected,  including homework, with no monitoring needed.
+					</td>
+					<td class="put_center">
+						<b><%= grade.comes_prepared %></b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Attends class regularly and on time.
+					</td>
+					<td class="put_center">
+						<b><%= grade.attends_class %></b>
+					</td>
+				</tr>
 
-					<table class = "benchmark" >
-						<% std.benchMarks.each do |bm| %>
-							<tr><td ><%=bm.name%></td> <td class="benchmark_value"><%= grade.extended_grades.find_by_benchMark_id(bm.id).try(:bmGrade) %></td></tr>
-						<% end %>
-					</table>
-				<% end %>
-				<br />
-				<b>Comment:</b><br />
-				</div>
-				<div class="report_comment">
-					<%= grade.try(:comment) %>
-				</div>
-			</div>
-			<div class="page-break" ></div>
-	<% end %>
+			</table>
+		<br />
+		<h3>Comments about course academic progress:</h3>
+		<p><%= grade.schedule.section.section_comments.where("section_comments.period = ?", "Q3").first.try(:comment).force_encoding("UTF-8") unless grade.schedule.section.section_comments.where("section_comments.period = ?", "Q3").first.blank? %></p>
+		<div class="print-only">
+			<h3>Achievement</h3>
+			<p> The student's achievement grade is a direct measure of the competence a student has shown in terms of skills, knowledge, and understanding of the course.</p>
+		</div>
+		<h3>Comments about achievement:</h3>
+		<p><%= grade.comment.force_encoding("UTF-8") unless grade.comment.blank? %></p>
+		</div>
+	<div class="page-break" ></div>
 <% end %>
 

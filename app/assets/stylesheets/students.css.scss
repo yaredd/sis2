@@ -231,6 +231,12 @@ div.cover_h_bar{
     color: rgb(90,195,253);
 }
 
+div.q3_ms_cover_h_bar{
+    background-color: #ffcf00;
+    height: 20px;
+    color: lightyellow;
+}
+
 div.cover_logo{
     float:left;
 }
@@ -257,6 +263,23 @@ div.cover_h_bar2{
     font-weight: bold;
     line-height: 45px;
     vertical-align: middle;
+}
+div.q3_ms_cover_h_bar2{
+		padding-left: 1%;
+    background-color: #ffcf00;
+    height: 45px;
+		width: 100%;
+    color: rgb(255,255,255);
+    float: left;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 45px;
+    vertical-align: middle;
+}
+div #q3_ms_footer {
+	margin-top: 25%;
+
 }
 	div.report_cover1 {
 		margin-top: 5%;
