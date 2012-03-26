@@ -12,4 +12,8 @@ class InterimGrade < ActiveRecord::Base
   def self.by_schedule_period p,s
     where(:schedule_id => s).where(:grading_period => p).first
   end
+
+  def self.by_period p
+    where(:grading_period => p)
+  end
 end
