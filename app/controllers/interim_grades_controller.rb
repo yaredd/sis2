@@ -5,21 +5,24 @@ class InterimGradesController < ApplicationController
   # GET /interim_grades.json
   def index
   	if ! ( nilOrEmpty?(params[:student]) | nilOrEmpty?(params[:grade]) )
-    	@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.grade = ? and  students.id = ?", params[:grade].to_i, params[:student].to_i).order(:grade, :firstname))
+  		@interim_grades = InterimGrade.by_period("Q3").where("students.grade = ? and  students.id = ?", params[:grade].to_i, params[:student].to_i).order("students.grade, students.firstname").includes({:schedule => { :section => [:course]}, :schedule => [:student]})
+    	#@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.grade = ? and  students.id = ?", params[:grade].to_i, params[:student].to_i).order(:grade, :firstname))
     elsif ! nilOrEmpty?(params[:student]) & nilOrEmpty?(params[:grade])
-    	@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.id = ?", params[:student].to_i).order(:grade, :firstname))
+    	@interim_grades = InterimGrade.by_period("Q3").where("students.id = ?", params[:student].to_i).order("students.grade, students.firstname").includes({:schedule => { :section => [:course]}, :schedule => [:student]})
+    	#@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.id = ?", params[:student].to_i).order(:grade, :firstname))
 		elsif  nilOrEmpty?(params[:student]) & ! nilOrEmpty?(params[:grade])
-    	@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.grade = ?", params[:grade].to_i).order(:grade, :firstname))
+			@interim_grades = InterimGrade.by_period("Q3").where("students.grade = ?", params[:grade].to_i).order("students.grade, students.firstname").includes({:schedule => { :section => [:course]}, :schedule => [:student]})
+    	#@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.where("students.grade = ?", params[:grade].to_i).order(:grade, :firstname))
 		else
-			@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.order(:grade, :firstname))
+			@interim_grades = InterimGrade.by_period("Q3").where("students.grade in (6, 7, 8)").order("students.grade, students.firstname").includes({:schedule => { :section => [:course]}, :schedule => [:student]})
+			#@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.order(:grade, :firstname))
 		end
-		
+
 		s = []
 		@interim_grades.each do |i|
 			s << i.student
 		end
 		@students = s.uniq
-		
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @interim_grades }
