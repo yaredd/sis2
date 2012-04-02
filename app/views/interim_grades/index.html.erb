@@ -8,7 +8,9 @@
    <% end %>
   </fieldset>
 </div>
-
+<hr />
+<%= raw(page_entries_info @students )%><br/><%= paginate @students %>
+<hr />
 <% if Period.current_period == "Q3" %>
   <% @students.each do |student| %>
     <%= render :partial => "q3_ms_interim_report_card", :locals => {:student => student, :interim_grades => @interim_grades.where("students.id = ?", student.id)} %>

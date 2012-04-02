@@ -12,12 +12,12 @@ class SchedulesController < ApplicationController
       params[:teacher] = Teacher.order(:firstName).first.id unless ! params[:teacher].nil?
       params[:block] = 1 unless ! params[:block].nil?
 
-      @schedules = Schedule.by_grading_period(params[:grading_period]||=Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block]).joins(:student).merge(Student.order(:firstName))
+      @schedules = Schedule.by_grading_period(params[:grading_period]||Period.current_grading_period).where(:teacher_id => params[:teacher].to_i).where(:block_id => params[:block]).joins(:student).merge(Student.order(:firstName))
     elsif current_user.role? :teacher
       
       @teacher = Teacher.find_by_login(current_user.login)
       
-      @schedules = Schedule.by_grading_period(params[:grading_period]||=Period.current_grading_period).where("schedules.teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||=Block.by_teacher(@teacher.id, params[:grading_period]||=Period.current_grading_period).first.id).joins(:student).merge(Student.order(:firstName))
+      @schedules = Schedule.by_grading_period(params[:grading_period]||Period.current_grading_period).where("schedules.teacher_id = ?",  @teacher.id).where(:block_id => params[:block]||Block.by_teacher(@teacher.id, params[:grading_period]||=Period.current_grading_period).first.id).joins(:student).merge(Student.order(:firstName))
     end
 
 

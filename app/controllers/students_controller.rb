@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.order(:lastName)
+    @students = Student.page(params[:page]).order(:lastName)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,14 +13,17 @@ class StudentsController < ApplicationController
   end
   
   def report_card 
-    @students = Student.order(:firstName,:grade).search(params[:grade], params[:student_id])
+    @students = Student.order(:firstName,:grade).search(params[:grade], params[:student]).includes(:schedules => [:grades]).where("grades.grading_period = ?", params[:grading_period]||=Period.current_grading_period).page(params[:page]).per(10)
   end
 
   def warning_grades
     @students = Student.order(:grade, :firstName, :teacher_id).search(params[:grade], params[:student_id]||="")
   end
 
-
+  def interim_report_card 
+    @students = Student.search(params[:grade], params[:student]).includes(:schedules => [:interim_grades]).where("interim_grades.grading_period = ?", params[:grading_period]||=Period.current_grading_period).page(params[:page]).per(10)
+  end
+  
   # GET /students/1
   # GET /students/1.json
  # def show

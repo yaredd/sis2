@@ -2,15 +2,18 @@
   <fieldset>
     <legend>Search Student</legend>
     <%= form_tag request.url , :method => :get do %>
-      Student: <%= select_tag :student_id, options_from_collection_for_select(Student.order('firstName ASC'), :id, :fullName, params[:student_id]), :include_blank => true %><br />
+      Student: <%= select_tag :student, options_from_collection_for_select(Student.order(:firstName, :grade).where(:grade => (params[:grade].blank? ? [6, 7, 8, 9, 10, 11, 12] : params[:grade])), :id, :fullName, params[:student]), :include_blank => true %><br />
       Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
       Grading Period: <%= select_tag :grading_period, options_for_select(["Q1", "Sem1", "Q3", "Sem2"], params[:grading_period]), :include_blank => true %><br />
       <%= submit_tag "apply" %>
    <% end %>
   </fieldset>
 </div>
-<% if ! (params[:grading_period].blank? && params[:student_id].blank? && params[:grade].blank?) || @students.empty? %> <!-- show results only when user searched by any params -->
+<hr />
+<% if !  @students.blank? %> <!-- show results only when there are students returned -->
 
+<%= raw(page_entries_info @students )%><br/><%= paginate @students %>
+<hr />
 	<% @students.each do |student| %>
 
 	  <div class="print-only">
@@ -61,20 +64,20 @@
 						    </th>
 					</tr>
 
-						<% grades_by_period = Grade.by_period(params[:grading_period]||Period.current_grading_period).joins(:student).merge(Student.where(:id => student.id)) %>
-						<% grades_by_period.each do |grade| %>
+						<% schedules = student.schedules %>
+						<% schedules.each do |sch| %>
 						    <tr VALIGN=TOP>
 						        <td>
-						            <%= grade.schedule.section.course.description %>
+						            <%= sch.section.course.description %>
 						        </td>
 						        <td>
-						            <%= grade.schedule.teacher.fullName %>
+						            <%= sch.teacher.fullName %>
 						        </td>
 						        <td class="put_center">
-						            <%= grade.mark.try(:name) %>
+						            <%= sch.grades.first.mark.try(:name) %>
 						        </td>
 						        <td class="put_center">
-						            <%= grade.effort.try(:name) %>
+						            <%= sch.grades.first.effort.try(:name) %>
 						        </td>
 						    </tr>
 						<% end %>

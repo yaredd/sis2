@@ -5,7 +5,8 @@ class Schedule < ActiveRecord::Base
   belongs_to :period
   belongs_to :block
   has_many   :grades
-
+	has_many	 :interim_grades
+	
 	validates_presence_of :student_id, :teacher_id, :section_id, :period_id, :block_id
   scope :q1_schedules , where("period_id in (1, 5, 7, 8, 12, 14)")
   
@@ -22,6 +23,8 @@ class Schedule < ActiveRecord::Base
   		self.where("period_id in (5,7,12,14)")
 		elsif p == "Q3"
 			self.where("period_id in (3,6,7,10,13,14)")
+  	elsif p == "Sem2"
+  	  self.where("period_id in (6,7,13,14)")
   	end
   end
 

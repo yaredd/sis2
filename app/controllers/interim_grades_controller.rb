@@ -17,7 +17,7 @@ class InterimGradesController < ApplicationController
 			@interim_grades = InterimGrade.by_period("Q3").where("students.grade in (6, 7, 8)").order("students.grade, students.firstname").includes({:schedule => { :section => [:course]}, :schedule => [:student]})
 			#@interim_grades = InterimGrade.where(:grading_period => "Q3").joins(:schedule).joins(:student).merge(Student.order(:grade, :firstname))
 		end
-
+		
 		s = []
 		@interim_grades.each do |i|
 			s << i.student
@@ -27,6 +27,8 @@ class InterimGradesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @interim_grades }
     end
+    @interim_grades = Kaminari.paginate_array(@interim_grades)@interim_grades.page(params[:page]).per(20)
+    
   end
 
   # GET /interim_grades/1
