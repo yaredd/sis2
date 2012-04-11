@@ -8,12 +8,13 @@
       <%= submit_tag "apply" %>
    <% end %>
   </fieldset>
-</div>
+
 <hr />
 <% if !  @students.blank? %> <!-- show results only when there are students returned -->
 
 <%= raw(page_entries_info @students )%><br/><%= paginate @students %>
 <hr />
+</div>
 	<% @students.each do |student| %>
 
 	  <div class="print-only">

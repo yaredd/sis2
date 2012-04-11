@@ -13,6 +13,9 @@ class Ability
        		can :warning_grades, Student
        		can :report_card, Student
        elsif user.role? :teacher
+       		can :read, Student
+       		can :interim_report_card, Student
+       		can :report_card, Student
        		can :create, SectionComment
        		can :update, SectionComment do |sc|
        			user.login == sc.teacher.try(:login)
