@@ -5,7 +5,6 @@
 
     <th>Mark</th>
     <th>Effort</th>
-    <th></th>
 
   </tr>
 
@@ -16,8 +15,8 @@
 
     <% if Grade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).nil? %>
       <td></td>
+			<td></td>
 
-      <td></td>
       <% if can? :create, Grade %>
       	<td><%= link_to "input grade", new_grade_path(:schedule_id => schedule.id)%></td>
       <% end %>
@@ -27,7 +26,9 @@
       <td><u><%= g.effort.nil? ? "" : g.effort.name %></u></td>
       <% if can? :update, g %>
         <td><%= link_to "edit grade", edit_grade_path(g) %></td>
+      <% else %>
       <% end %>
+      <td><%= link_to "show grade", g %></td>
     <% end %>
 
   </tr>

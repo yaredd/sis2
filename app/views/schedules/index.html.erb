@@ -6,7 +6,8 @@
 			<% t.sections_taught.each do |s| %>
 				<% sc = SectionComment.filed?(s.id, params[:grading_period]||Period.current_grading_period) %>
 				<% p_hash = {:section_id => s.id, :teacher_id => t.id, :period => params[:grading_period]||Period.current_grading_period } %>
-				<li><%= link_to s.course.name + " - Block " + s.schedules.first.block.name, sc.blank? ? new_section_comment_url(p_hash) : edit_section_comment_path(sc) %></li>
+				<% new_edit_or_show_link = sc.blank? ? new_section_comment_url(p_hash) : (params[:grading_period] == Period.current_grading_period ? edit_section_comment_path(sc) : section_comment_path(sc)) %>
+				<li><%= link_to s.course.name + " - Block " + s.schedules.first.block.name, new_edit_or_show_link %></li>
 			<% end %>
 
 		<% elsif current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
@@ -14,7 +15,8 @@
 			<% t.sections_taught.each do |s| %>
 				<% sc = SectionComment.filed?(s.id, params[:grading_period]||Period.current_grading_period) %>
 				<% p_hash = {:section_id => s.id, :teacher_id => t.id, :period => params[:grading_period]||Period.current_grading_period } %>
-				<li><%= link_to s.course.name + " - Block " + s.schedules.first.block.name, sc.blank? ? new_section_comment_url(p_hash) : edit_section_comment_path(sc) %></li>
+				<% new_edit_or_show_link = sc.blank? ? new_section_comment_url(p_hash) : (params[:grading_period] == Period.current_grading_period ? edit_section_comment_path(sc) : section_comment_path(sc)) %>
+				<li><%= link_to s.course.name + " - Block " + s.schedules.first.block.name, new_edit_or_show_link %></li>
 			<% end %>
 		<% end %>
 	</ul>
