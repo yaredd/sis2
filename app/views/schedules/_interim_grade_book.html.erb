@@ -8,7 +8,7 @@
     <th>Pos. Attitude</th>
     <th>Prepared</th>
     <th>Attends</th>
-    <th></th>
+
 
   </tr>
 
@@ -27,16 +27,18 @@
       	<td><%= link_to "input grade", new_interim_grade_path(:schedule_id => schedule.id)%></td>
       <% end %>
     <% else %>
-      <td><u><%= InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).mark.try(:name) %><u></td>
-      <td><u><%= InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).on_task %></u></td>
-      <td><u><%= InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).positive_attitude %></u></td>
-      <td><u><%= InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).comes_prepared %></u></td>
-      <td><u><%= InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id).attends_class %></u></td>
-      <% if can? :update, InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id) %>
-        <td><%= link_to "edit grade", edit_interim_grade_path(InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id)) %></td>
+    	<% ig = InterimGrade.by_schedule_period(params[:grading_period]||=Period.current_grading_period, schedule.id) %>
+      <td><u><%= ig.mark.try(:name) %><u></td>
+      <td><u><%= ig.on_task %></u></td>
+      <td><u><%= ig.positive_attitude %></u></td>
+      <td><u><%= ig.comes_prepared %></u></td>
+      <td><u><%= ig.attends_class %></u></td>
+      <% if can? :update, ig %>
+        <td><%= link_to "edit grade", edit_interim_grade_path(ig) %></td>
       <% end %>
+      <td><%= link_to "show grade", interim_grade_path(ig) %></td>
     <% end %>
-
+		
   </tr>
 <% end %>
 </table>

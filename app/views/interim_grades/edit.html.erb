@@ -36,10 +36,10 @@ for <%= @interim_grade.schedule.student.fullNameGrade %> <br /><%= @interim_grad
     Attends class regularly and on time. &nbsp;
     <%= f.select :attends_class, options_for_select([[""], ["Always"], ["Usually"], ["Occasionally"], ["Unacceptable"]], @interim_grade.attends_class) %>
   </div>
-  <div class="field">
+<!--  <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment %>
-  </div>
+  </div> !-->
     <div class="actions">
       <%= f.submit 'Save', :disable_with => "Saving ..." %> &nbsp;&nbsp;<%= link_to "DELETE", @interim_grade, :method => :delete , :confirm => "Are you sure?" %>
     </div>

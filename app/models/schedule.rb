@@ -23,6 +23,8 @@ class Schedule < ActiveRecord::Base
   		self.where("period_id in (5,7,12,14)")
 		elsif p == "Q3"
 			self.where("period_id in (3,6,7,10,13,14)")
+		elsif p == "Q4"
+			self.where("period_id in (4,6,7,11,13,14)")
   	elsif p == "Sem2"
   	  self.where("period_id in (6,7,13,14)")
   	end

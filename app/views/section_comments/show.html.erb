@@ -2,12 +2,12 @@
 
 <p>
   <b>Section:</b>
-  <%= @section_comment.section %>
+  <%= @section_comment.section.course.name + " Block " + @section_comment.section.schedules.first.block.name %>
 </p>
 
 <p>
   <b>Teacher:</b>
-  <%= @section_comment.teacher %>
+  <%= @section_comment.teacher.fullName %>
 </p>
 
 <p>
@@ -21,5 +21,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_section_comment_path(@section_comment) %> |
-<%= link_to 'Back', section_comments_path %>
+<% if can? :update, @section_comment %>
+	<%= link_to 'Edit', edit_section_comment_path(@section_comment) %> |
+<% end %>
+<%= link_to 'Back', :back %>

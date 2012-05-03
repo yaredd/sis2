@@ -38,4 +38,5 @@
       <b>Comment:</b>
       <%= @grade.comment %> 
     </p> 
-<%= link_to 'Back to Grade Book', schedules_path(:block => @grade.schedule.block_id, :teacher => @grade.schedule.teacher.id) %>
+<%= link_to 'Back to Grade Book', schedules_path(:block => @grade.schedule.block_id, :teacher => @grade.schedule.teacher.id, :grading_period => @grade.grading_period) %>
+
