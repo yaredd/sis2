@@ -20,8 +20,11 @@
 		<% @students.each do |student| %>
 		  <%= render :partial => "q3_ms_interim_report_card", :locals => {:student => student} %>
 		<% end %>
-	<% else %>
-
+	<% elsif params[:grading_period] == "Q4" %>
+    <% @students.each do |student| %>
+      <%= render :partial => "q4_hs_interim_report_card", :locals => {:student => student} %>
+    <% end %>
+  <% else %>
 		<% @interim_grades.each do |interim_grade| %>
 
 		<div class="print-only">
