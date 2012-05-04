@@ -3,8 +3,8 @@
     <legend>Search Student</legend>
     <%= form_tag request.url , :method => :get do %>
       Student: <%= select_tag :student, options_from_collection_for_select(Student.order(:firstName, :grade).where(:grade => (params[:grade].blank? ? [6, 7, 8, 9, 10, 11, 12] : params[:grade])), :id, :fullName, params[:student]), :include_blank => true %><br />
-      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8"], params[:grade]), :include_blank => true %><br />
-      Grading Period: <%= select_tag :grading_period, options_for_select(["Q1", "Sem1", "Q3", "Sem2"], params[:grading_period]), :include_blank => true %><br />
+      Grade: <%= select_tag :grade, options_for_select(["6", "7", "8", "9", "10", "11", "12"], params[:grade]), :include_blank => true %><br />
+      Grading Period: <%= select_tag :grading_period, options_for_select(["Q1", "Sem1", "Q3", "Q4", "Sem2"], params[:grading_period]), :include_blank => true %><br />
       <%= submit_tag "apply" %>
    <% end %>
   </fieldset>
@@ -16,7 +16,7 @@
 		<%= raw(page_entries_info @students )%><br/><%= paginate @students %>
 		<hr />
 	</div>
-	<% if params[:grading_period] == "Q3" %>
+	<% if params[:grading_period] == "Q3"%>
 		<% @students.each do |student| %>
 		  <%= render :partial => "q3_ms_interim_report_card", :locals => {:student => student} %>
 		<% end %>
