@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Course:</b>
+  <%= @final_grade.schedule.section.course.description %>
+</p>
+
+<p>
+  <b>Effort:</b>
+  <%= @final_grade.effort.name %>
+</p>
+
+<p>
+  <b>Sem2:</b>
+  <%= @final_grade.sem2 %>
+</p>
+
+<p>
+  <b>Exam:</b>
+  <%= @final_grade.exam %>
+</p>
+
+<p>
+  <b>Sem2final:</b>
+  <%= @final_grade.sem2final %>
+</p>
+
+
+
+<%= link_to 'Back', schedules_path( :teacher => @final_grade.schedule.teacher.id, :book => 'HS_Final',:block => @final_grade.schedule.block_id ) %>

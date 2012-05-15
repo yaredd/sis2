@@ -1,0 +1,42 @@
+<%= form_for(@final_grade) do |f| %>
+  <% if @final_grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@final_grade.errors.count, "error") %> prohibited this final_grade from being saved:</h2>
+
+      <ul>
+      <% @final_grade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% sch_id = @final_grade.schedule_id||params[:schedule_id] %>
+<% sch = Schedule.find sch_id %>
+      <%= f.hidden_field :schedule_id, :value =>  sch_id %>
+<h3>Entering Grade for <%= sch.student.fullNameGrade %> -- <%= sch.section.course.description %>.</h3>
+
+  <div class="field">
+    <%= f.label :effort %><br />
+    <%= f.select :effort_id, options_from_collection_for_select(Effort.all, :id, :name, @final_grade.effort_id), :include_blank => true%>
+  </div>
+  <div class="field">
+    <%= f.label :sem2 %><br />
+    <%= f.select :sem2, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], [@final_grade.sem2, @final_grade.sem2]) %>
+  </div>
+  <div class="field">
+    <%= f.label :exam %><br />
+    <%= f.select :exam, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], [@final_grade.exam, @final_grade.exam]) %>
+  </div>
+
+  <div class="field">
+    <div class="suggested">Suggested Grade is 0</div>
+  </div>
+
+  <div class="field">
+    <%= f.label :sem2final %><br />
+    <%= f.select :sem2final, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], [@final_grade.sem2final, @final_grade.sem2final]) %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Save", :disable_with => "Saving ..." %>
+  </div>
+<% end %>

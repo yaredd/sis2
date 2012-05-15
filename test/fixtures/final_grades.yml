@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  schedule: 
+  effort: 
+  sem2: 1
+  exam: 1
+  sem2final: 1
+
+two:
+  schedule: 
+  effort: 
+  sem2: 1
+  exam: 1
+  sem2final: 1

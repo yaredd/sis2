@@ -34,10 +34,14 @@
 		    Block: <%= select_tag :block, options_from_collection_for_select(Block.by_teacher(@teacher.id, params[:grading_period]||=Period.current_grading_period), :id, :name, params[:block]), :include_blank => false %><br />
 		    <% end %>
 		    Grading Period: <%= select_tag "grading_period", options_for_select([["Q1"], ["Q2"], ["Sem1"], ["Q3"], ["Q4"], ["Sem2"]], params[:grading_period]||=Period.current_period) %><br />
-		    <%= radio_button_tag(:book, "Quarter", (params[:book] == "Quarter"  || params[:book].nil?) ? :checked : nil) %>
-			<%= label_tag(:q_grade, "Quarter/Semester Grade Book") %>
+		   Grade book <%= radio_button_tag(:book, "Quarter", (params[:book] == "Quarter"  || params[:book].nil?) ? :checked : nil) %>
+			<%= label_tag(:q_grade, "Quarter/Semester") %>
 			<%= radio_button_tag(:book, "Interim", params[:book] == "Interim" ? :checked : nil ) %>
-			<%= label_tag(:i_grade, "Interim Grade Book") %><br />
+			<%= label_tag(:i_grade, "Interim") %>
+			<%= radio_button_tag(:book, "HS_Final", params[:book] == "HS_Final" ? :checked : nil ) %>
+			<%= label_tag(:hs_grade, "HS Final") %>
+
+      <br />
 		    <%= submit_tag "apply" %>
 		  <% end %>
 		</fieldset>
@@ -50,6 +54,8 @@
 			<%= render "quarter_grade_book", :collection => @schedules %>
 		<% elsif params[:book] == "Interim" %>
 			<%= render "interim_grade_book", :collection => @schedules %>
+    <% elsif params[:book] == "HS_Final" %>
+      <%= render "hs_final_grade_book", :collecton => @schedules %>
 		<% end %>
 	</div>
 </div>
