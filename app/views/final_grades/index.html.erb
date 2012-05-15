@@ -1,0 +1,31 @@
+<h1>Listing final_grades</h1>
+
+<table>
+  <tr>
+    <th>Schedule</th>
+    <th>Effort</th>
+    <th>Sem2</th>
+    <th>Exam</th>
+    <th>Sem2final</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @final_grades.each do |final_grade| %>
+  <tr>
+    <td><%= final_grade.schedule %></td>
+    <td><%= final_grade.effort %></td>
+    <td><%= final_grade.sem2 %></td>
+    <td><%= final_grade.exam %></td>
+    <td><%= final_grade.sem2final %></td>
+    <td><%= link_to 'Show', final_grade %></td>
+    <td><%= link_to 'Edit', edit_final_grade_path(final_grade) %></td>
+    <td><%= link_to 'Destroy', final_grade, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Final grade', new_final_grade_path %>
