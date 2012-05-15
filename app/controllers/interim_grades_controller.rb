@@ -27,7 +27,7 @@ class InterimGradesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @interim_grades }
     end
-    @interim_grades = Kaminari.paginate_array(@interim_grades)@interim_grades.page(params[:page]).per(20)
+    @interim_grades = Kaminari.paginate_array(@interim_grades).page(params[:page]).per(20)
     
   end
 
