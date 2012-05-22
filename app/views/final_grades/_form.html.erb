@@ -20,20 +20,20 @@
     <%= f.select :effort_id, options_from_collection_for_select(Effort.all, :id, :name, @final_grade.effort_id), :include_blank => true%>
   </div>
   <div class="field">
-    <%= f.label :sem2 %><br />
-    <%= f.select :sem2, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], [@final_grade.sem2, @final_grade.sem2]) %>
+    Sem. 2<br />
+    <%= f.select :sem2, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"], ["7M", "7M"], ["6M", "6M"], ["5M", "5M"], ["4M", "4M"], ["3M", "3M"], ["2M", "2M"], ["1M", "1M"]], [@final_grade.sem2, @final_grade.sem2]) %>
   </div>
   <div class="field">
     <%= f.label :exam %><br />
-    <%= f.select :exam, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], [@final_grade.exam, @final_grade.exam]) %>
+    <%= f.select :exam, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"], ["7M", "7M"], ["6M", "6M"], ["5M", "5M"], ["4M", "4M"], ["3M", "3M"], ["2M", "2M"], ["1M", "1M"]], [@final_grade.exam, @final_grade.exam]) %>
   </div>
 
   <div class="field">
-    <div class="suggested">Suggested Grade is 0</div>
+    <div class="calculated">Calculated Grade is 0</div>
   </div>
 
   <div class="field">
-    <%= f.label :sem2final %><br />
+    Sem. 2 Final Grade<br />
     <%= f.select :sem2final, options_for_select([["", ""], ["7", "7"], ["6", "6"], ["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], [@final_grade.sem2final, @final_grade.sem2final]) %>
   </div>
   <div class="actions">

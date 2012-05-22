@@ -18,3 +18,13 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
 }
+
+$(document).ready(function(){
+var rows = $("table tr:gt(0)");
+rows.each(function() {
+    var sem2 = parseInt($(this).find(".sem2").html());
+    var exam = parseInt($(this).find(".exam").html());
+    var calculated = sem2 * .85 + exam * .15 ;
+    $(this).find(".calculated").html(calculated.toFixed(3));
+ });
+});

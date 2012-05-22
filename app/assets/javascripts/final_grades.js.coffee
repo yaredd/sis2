@@ -4,16 +4,12 @@
 jQuery ->
     $('#final_grade_sem2').click ->
         calculated = (parseInt($('#final_grade_sem2').val()) * .85) + (parseInt($('#final_grade_exam').val()) * .15)
-        $('.suggested').css("color", "red")
-        $('.suggested').html("Suggested Grade is "+calculated.toFixed(3))
+        $('.calculated').html("Calculated Grade is "+calculated.toFixed(3))
 
-jQuery ->
     $('#final_grade_exam').click ->
         calculated = (parseInt($('#final_grade_sem2').val()) * .85) + (parseInt($('#final_grade_exam').val()) * .15)
-        $('.suggested').css("color", "red")
-        $('.suggested').html("Suggested Grade is "+calculated.toFixed(3))
+        $('.calculated').html("Calculated Grade is "+calculated.toFixed(3))
 
-jQuery ->
     calculated = (parseInt($('#final_grade_sem2').val()) * .85) + (parseInt($('#final_grade_exam').val()) * .15)
-    $('.suggested').css("color", "red")
-    $('.suggested').html("Suggested Grade is "+calculated.toFixed(3))
+    $('.calculated').css("color", "red")
+    $('.calculated').html("Calculated Grade is "+calculated.toFixed(3))
