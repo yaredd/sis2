@@ -6,6 +6,7 @@
     <th>Sem 2</th>
     <th>Exam</th>
     <th>Calculated</th>
+    <th>Suggested Sem 2. Final Grade</th>
     <th>Sem. 2 Final Grade</th>
   </tr>
 
@@ -19,6 +20,7 @@
 			<td></td>
       <td></td>
       <td>NA</td>
+      <td>NA</td>
       <td></td>
       <% if can? :create, FinalGrade %>
       	<td><%= link_to "input grade", new_final_grade_path(:schedule_id => schedule.id)%></td>
@@ -26,9 +28,10 @@
     <% else %>
       <% fg = FinalGrade.find_by_schedule_id(schedule.id) %>
       <td><%= fg.effort.blank? ? "" : fg.effort.name %></td>
-      <td class="sem2"><%= fg.sem2.blank? ? "" : fg.sem2 %></td>
-      <td class="exam"><%= fg.exam.blank? ? "" : fg.exam %></td>
+      <td class="sem2"><%= fg.sem2.blank? ? "-" : fg.sem2 %></td>
+      <td class="exam"><%= fg.exam.blank? ? "-" : fg.exam %></td>
       <td class="calculated">NA</td>
+      <td class="suggested">NA</td>
       <td><%= fg.sem2final.blank? ? "" : fg.sem2final %></td>
       <% if can? :update, fg %>
         <td><%= link_to "edit grade", edit_final_grade_path(fg) %></td>
