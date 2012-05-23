@@ -103,7 +103,7 @@ class InterimGradesController < ApplicationController
     @interim_grade.destroy
 
     respond_to do |format|
-      format.html { redirect_to schedules_url({:book => "Interim", :block => block, :teacher => teacher}) }
+      format.html { redirect_to schedules_url({:grading_period => params[:grading_period], :book => "Interim", :block => block, :teacher => teacher}) }
       format.json { head :ok }
     end
   end
