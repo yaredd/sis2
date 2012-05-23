@@ -18,3 +18,44 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
 }
+
+$(document).ready(function(){
+var rows = $("table tr:gt(0)");
+rows.each(function() {
+    var sem2 = parseInt($(this).find(".sem2").html());
+    var exam = parseInt($(this).find(".exam").html());
+    var calculated = sem2 * .85 + exam * .15 ;
+    $(this).find(".calculated").html(calculated.toFixed(3));
+    var suggested = 0;
+    if ( calculated >= 6.669)
+    {
+    	suggested = 7;
+    }
+    else if ( calculated >= 5.669)
+    {
+    	suggested = 6;
+    }
+    else if ( calculated >= 4.669)
+    {
+    	suggested = 5;
+    }
+    else if ( calculated >= 3.669)
+    {
+    	suggested = 4;
+    }
+    else if ( calculated >= 2.669)
+    {
+    	suggested = 3;
+    }
+    else if ( calculated >= 1.669)
+    {
+    	suggested = 2;
+    }
+    else
+    {
+    	suggested = 1;
+    }
+
+		$(this).find(".suggested").html(suggested);
+ });
+});

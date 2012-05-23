@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <b>Sem2:</b>
+  <b>Sem. 2:</b>
   <%= @final_grade.sem2 %>
 </p>
 
@@ -21,10 +21,10 @@
 </p>
 
 <p>
-  <b>Sem2final:</b>
+  <b>Sem. 2 Final Grade:</b>
   <%= @final_grade.sem2final %>
 </p>
 
 
 
-<%= link_to 'Back', schedules_path( :teacher => @final_grade.schedule.teacher.id, :book => 'HS_Final',:block => @final_grade.schedule.block_id ) %>
+<%= link_to 'Back to grade book', schedules_path( :teacher => @final_grade.schedule.teacher.id, :book => 'HS_Final',:block => @final_grade.schedule.block_id ) %>

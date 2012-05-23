@@ -25,12 +25,15 @@ class Ability
           can :update, Grade do |g|
             g.schedule.teacher.try(:login) == user.login && g.grading_period == Period.current_grading_period
           end
+          can :update, FinalGrade do |fg|
+          	fg.schedule.teacher.try(:login) == user.login && "Sem2" == Period.current_grading_period
+          end
           can [:update, :destroy], InterimGrade do |g|
             g.schedule.teacher.try(:login) == user.login && g.grading_period == Period.current_period
           end
-          can :create, [Grade, InterimGrade]
+          can :create, [Grade, InterimGrade, FinalGrade]
           
-          can :read, [Grade, InterimGrade]
+          can :read, [Grade, InterimGrade, FinalGrade]
        else
           can :read, Schedule
        end

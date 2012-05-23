@@ -1,4 +1,6 @@
 class FinalGradesController < ApplicationController
+	load_and_authorize_resource
+	
   # GET /final_grades
   # GET /final_grades.json
   def index
@@ -44,7 +46,7 @@ class FinalGradesController < ApplicationController
 
     respond_to do |format|
       if @final_grade.save
-        format.html { redirect_to @final_grade, notice: 'Final grade was successfully created.' }
+        format.html { redirect_to schedules_path( :teacher => @final_grade.schedule.teacher.id, :book => 'HS_Final',:block => @final_grade.schedule.block_id ), notice: "Final grade for #{@final_grade.schedule.student.fullName} was successfully entered." }
         format.json { render json: @final_grade, status: :created, location: @final_grade }
       else
         format.html { render action: "new" }
@@ -60,7 +62,7 @@ class FinalGradesController < ApplicationController
 
     respond_to do |format|
       if @final_grade.update_attributes(params[:final_grade])
-        format.html { redirect_to @final_grade, notice: 'Final grade was successfully updated.' }
+        format.html { redirect_to schedules_path( :teacher => @final_grade.schedule.teacher.id, :book => 'HS_Final',:block => @final_grade.schedule.block_id ), notice: "Final grade for #{@final_grade.schedule.student.fullName} successfully updated." }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
