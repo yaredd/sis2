@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316020535) do
+ActiveRecord::Schema.define(:version => 20120522221310) do
 
   create_table "bench_marks", :force => true do |t|
     t.string  "name"
@@ -50,6 +50,19 @@ ActiveRecord::Schema.define(:version => 20120316020535) do
 
   add_index "extended_grades", ["benchMark_id"], :name => "index_extended_grades_on_benchMark_id"
   add_index "extended_grades", ["grade_id"], :name => "index_extended_grades_on_grade_id"
+
+  create_table "final_grades", :force => true do |t|
+    t.integer  "schedule_id"
+    t.integer  "effort_id"
+    t.string   "sem2"
+    t.string   "exam"
+    t.string   "sem2final"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "final_grades", ["effort_id"], :name => "index_final_grades_on_effort_id"
+  add_index "final_grades", ["schedule_id"], :name => "index_final_grades_on_schedule_id"
 
   create_table "grades", :force => true do |t|
     t.integer  "schedule_id"
