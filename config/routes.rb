@@ -1,4 +1,16 @@
 Sis2::Application.routes.draw do
+#  get "standards/index"
+
+#  get "standards/new"
+
+#  get "standards/show"
+
+#  get "standards/destroy"
+
+#  get "standards/edit"
+
+	resources :standards
+	
   resources :final_grades
 
   resources :section_comments

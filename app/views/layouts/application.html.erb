@@ -17,14 +17,13 @@
             <% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro  or current_user.role? :teacher %>
             	<% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
 		          	<%= link_to "Schedule", grid_schedules_path %> | 
-		          <% end %>
-		          <%= link_to "Report Cards", report_card_students_path %> | 
-		          <%= link_to "Interim Reports", interim_report_card_students_path %> | 
-            	<% if current_user.role? :admin or current_user.role? :super_admin or current_user.role? :admin_ro %>
-				        <%= link_to "Verification", verification_schedules_path %> |
+				        <%= link_to "Standards", standards_path %> |
 				        <%= link_to "Courses", courses_path %> |
 			  				<%= link_to "Students", students_path %> |
+				        <%= link_to "Verification", verification_schedules_path %> |
 		          <% end %>
+		          <%= link_to "Report Cards", report_card_students_path %> | 
+		          <%= link_to "Interim Reports", interim_report_card_students_path %> |  	
             <% end %>
             
             <%= link_to "Teacher Grade Book", schedules_path %> 
