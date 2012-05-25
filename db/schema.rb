@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120522221310) do
+ActiveRecord::Schema.define(:version => 20120524191854) do
 
   create_table "bench_marks", :force => true do |t|
     t.string  "name"

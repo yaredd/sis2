@@ -1,11 +1,13 @@
 <h1>Listing courses</h1>
-
+<%= render 'search' %>
+<hr />
+<%= raw(page_entries_info @courses )%><br/><%= paginate @courses %>
 <table>
   <tr>
     <th>Coursenumber</th>
     <th>Name</th>
     <th>Description</th>
-    <th></th>
+    <th colspan="2">Standards</th>
 
   </tr>
   <p>
@@ -17,6 +19,12 @@
     <td><%= course.courseNumber %></td>
     <td><%= course.name %></td>
     <td><%= course.description %></td>
+    <td><%= link_to 'add Std.', new_standard_path(:course_id => course.id) %></td>
+    <% if course.has_standards? %>
+    	<td><%= link_to 'goto Std.', standards_path(:course_id => course.id) %></td>
+    <% else %>
+    	<td></td>
+    <% end %>
     <td><%= link_to 'Edit', edit_course_path(course) %></td>
   </tr>
 <% end %>

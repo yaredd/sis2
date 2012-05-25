@@ -1,0 +1,24 @@
+Showing Standard
+<p>
+  <b>Name:</b>
+  <%= @standard.name %>
+</p>
+
+<p>
+  <b>Course:</b>
+  <%= @standard.course.name %>
+</p>
+
+<p>
+  <b>Grading Period:</b>
+  <%= @standard.grading_period %>
+</p>
+
+<p>
+	<b>BenchMarks:</b>
+	<% @standard.benchMarks.each do |b| %>
+		<br />&nbsp;&nbsp;No. <%= b.name %>
+	<% end %>
+</p>
+<%= link_to 'Edit', edit_standard_path(@standard) %> |
+<%= link_to 'Back', standards_path %>

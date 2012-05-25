@@ -1,0 +1,5 @@
+<%= form_tag request.url , :method => :get do %>
+	Course: <%= text_field_tag :course, params[:name] %>
+	<%= submit_tag "apply" %>
+<% end %>
+
