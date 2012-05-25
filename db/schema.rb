@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(:version => 20120524191854) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "grading_period"
   end
 
   add_index "standards", ["course_id"], :name => "index_standards_on_course_id"
