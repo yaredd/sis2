@@ -2,25 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  
   $('#final_grade_sem2').click ->
-      calculated = (parseInt($('#final_grade_sem2').val()) * .85) + (parseFloat($('#final_grade_exam').val()) * .15)
-      $('.calculated').html("Calculated Grade is "+calculated.toFixed(2))
-      $('.suggested').html("Suggested Sem. 2 Final Grade is " + suggestion(calculated))
+    calculated = get_calculated(parseInt($('#final_grade_sem2').val()) , parseFloat($('#final_grade_exam').val()))
+    $('.calculated').html(calculated)
+    $('.suggested').html(suggestion(calculated))
       	
 
   $('#final_grade_exam').click ->
-      calculated = (parseInt($('#final_grade_sem2').val()) * .85) + (parseFloat($('#final_grade_exam').val()) * .15)
-      $('.calculated').html("Calculated Grade is "+calculated.toFixed(2))
-      $('.suggested').html("Suggested Sem. 2 Final Grade is " + suggestion(calculated))
-      
-  calculated = (parseInt($('#final_grade_sem2').val()) * .85) + (parseFloat($('#final_grade_exam').val()) * .15)
+      calculated = get_calculated(parseInt($('#final_grade_sem2').val()) , parseFloat($('#final_grade_exam').val()))
+      $('.calculated').html(calculated)
+      $('.suggested').html(suggestion(calculated))
+
+  calculated = get_calculated(parseInt($('#final_grade_sem2').val()) , parseFloat($('#final_grade_exam').val()))
   $('.calculated').css("color", "red")
   $('.suggested').css("color", "red")
-  $('.calculated').html("Calculated Grade is "+calculated.toFixed(2))
-  $('.suggested').html("Suggested Sem. 2 Final Grade is " + suggestion(calculated))
+  $('.calculated').html(calculated)
+  $('.suggested').html(suggestion(calculated))
 
-	suggestion = (calculated) ->
+suggestion = (calculated) ->
   suggested = 0
   if calculated >= 6.7
     suggested = 7
@@ -34,7 +33,17 @@ jQuery ->
     suggested = 3
   else if calculated >= 1.7
     suggested = 2
+  else if calculated == "-"
+    suggested = "-"
   else
     suggested = 1
   suggested
 
+get_calculated = (sem2, exam) ->
+  calc = 0
+  calc = sem2 * .85 + exam * .15
+  if isNaN(calc)
+    calc = "-"
+  else
+    calc = calc.toFixed(2)
+  calc
