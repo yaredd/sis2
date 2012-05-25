@@ -14,9 +14,11 @@ class Course < ActiveRecord::Base
   
   def self.search name
   	if ! name.blank?
-			where("name like ? or description like ?", "%#{name}%", "%#{name}%")
-		end
-		order(:courseNumber)
+			where("name like ? or description like ?", "%#{name}%", "%#{name}%").order(:courseNumber)
+		else
+      self.order(:courseNumber)
+    end
+		
   end
   
 end
