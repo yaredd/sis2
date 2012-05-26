@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120522221310) do
+ActiveRecord::Schema.define(:version => 20120524191854) do
 
   create_table "bench_marks", :force => true do |t|
     t.string  "name"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(:version => 20120522221310) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "grading_period"
   end
 
   add_index "standards", ["course_id"], :name => "index_standards_on_course_id"

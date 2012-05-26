@@ -11,4 +11,14 @@ class Course < ActiveRecord::Base
   def has_standards?
   	return (self.standards.size >= 1)
   end
+  
+  def self.search name
+  	if ! name.blank?
+			where("name like ? or description like ?", "%#{name}%", "%#{name}%").order(:courseNumber)
+		else
+      self.order(:courseNumber)
+    end
+		
+  end
+  
 end

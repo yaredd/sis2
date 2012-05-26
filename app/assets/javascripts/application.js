@@ -23,33 +23,45 @@ $(document).ready(function(){
 var rows = $("table tr:gt(0)");
 rows.each(function() {
     var sem2 = parseInt($(this).find(".sem2").html());
-    var exam = parseInt($(this).find(".exam").html());
-    var calculated = sem2 * .85 + exam * .15 ;
-    $(this).find(".calculated").html(calculated.toFixed(3));
+    var exam = parseFloat($(this).find(".exam").html());
+    if (isNaN(sem2) || isNaN(exam))
+    {
+      var calculated = "-"
+    }
+    else
+    {
+      var calculated = sem2 * .85 + exam * .15 ;
+      $(this).find(".calculated").html(calculated.toFixed(2));
+    }
+
     var suggested = 0;
-    if ( calculated >= 6.669)
+    if ( calculated >= 6.7)
     {
     	suggested = 7;
     }
-    else if ( calculated >= 5.669)
+    else if ( calculated >= 5.7)
     {
     	suggested = 6;
     }
-    else if ( calculated >= 4.669)
+    else if ( calculated >= 4.7)
     {
     	suggested = 5;
     }
-    else if ( calculated >= 3.669)
+    else if ( calculated >= 3.7)
     {
     	suggested = 4;
     }
-    else if ( calculated >= 2.669)
+    else if ( calculated >= 2.7)
     {
     	suggested = 3;
     }
-    else if ( calculated >= 1.669)
+    else if ( calculated >= 1.7)
     {
     	suggested = 2;
+    }
+    else if ( calculated == "-")
+    {
+      suggested = "-";
     }
     else
     {

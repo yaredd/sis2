@@ -1,0 +1,38 @@
+<%= form_for(@standard) do |f| %>
+  <% if @standard.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@standard.errors.count, "error") %> prohibited this standard from being saved:</h2>
+
+      <ul>
+      <% @standard.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Standard:" %><br />
+    <%= f.text_field :name , :size => 80, :maxlength => 255 %>
+  </div>
+
+	<div class="field">
+		<%= f.label :course %><br />
+		<%= f.select :course_id, Course.order(:courseNumber).map { |c| ["#{c.courseNumber}, #{c.name}", c.id] }, :selected => params[:course_id] || @standard.course.try(:id) , :include_blank => true %>
+	</div>
+	
+  <div class="field">
+    <%= f.label :grading_period %><br />
+    <%= f.select :grading_period, options_for_select([["Sem2", "Sem2"], ["Sem1", "Sem1"]], [@standard.grading_period, @standard.grading_period]) %>
+  </div>
+
+		<%= f.fields_for :benchMarks do |builder| %>  		
+			<%= render "benchMark_fields", :f => builder %>
+		<% end %>
+		<div>
+		<%= link_to_add_fields "Add BenchMark", f, :benchMarks %> <br /> <br />
+		</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

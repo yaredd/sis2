@@ -1,0 +1,42 @@
+<h1>Listing standards</h1>
+<%= render 'search' %>
+<hr />
+<%= raw(page_entries_info @standards )%><br/><%= paginate @standards %><br />
+<%= link_to "Add Standard", new_standard_path(:course_id => params[:course_id]||"" ) %><br/>
+<table>
+  <tr>
+    <th>Standard</th>
+    <th>Grading Period</th>
+    <th>Course</th>
+    <th>BenchMarks</th>
+  </tr>
+
+<% @standards.each do |standard| %>
+  <tr>
+    <td><%= standard.name %></td>
+    <td><%= standard.grading_period %></td>
+    <td><%= standard.course.name %></td>
+    <% bench_marks = standard.benchMarks %>
+    <% if bench_marks.size != 0 %>
+    	<td></td>
+    	<td><%= link_to "edit", edit_standard_path(standard) %></td>	
+    	</tr>
+		  <% standard.benchMarks.each do |b| %>
+		  	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><%= b.name %></td>
+					<td></td>
+		  	</tr>
+		  <% end %>
+		<% else %>
+				<td></td>
+				<td><%= link_to "edit", edit_standard_path(standard) %></td>
+			</tr>
+		<% end %>
+<% end %>
+</table>
+
+<br />
+

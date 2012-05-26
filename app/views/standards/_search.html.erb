@@ -1,0 +1,5 @@
+<%= form_tag request.url , :method => :get do %>
+  Course: <%= select_tag :course_id, options_from_collection_for_select(Course.order(:name), :id, :name, params[:course_id]), :include_blank => true %>
+	<%= submit_tag "apply" %>
+<% end %>
+
