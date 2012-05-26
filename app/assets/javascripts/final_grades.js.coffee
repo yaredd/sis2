@@ -37,4 +37,3 @@ jQuery ->
     suggested = 1
   suggested
 
->>>>>>> 6a13084c78c2b80cc106684a43b0cf1838ba2313

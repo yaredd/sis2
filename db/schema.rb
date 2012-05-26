@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120513214208) do
+ActiveRecord::Schema.define(:version => 20120522221310) do
 
   create_table "bench_marks", :force => true do |t|
     t.string  "name"
@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(:version => 20120513214208) do
   create_table "final_grades", :force => true do |t|
     t.integer  "schedule_id"
     t.integer  "effort_id"
-    t.integer  "sem2"
-    t.integer  "exam"
-    t.integer  "sem2final"
+    t.string   "sem2"
+    t.string   "exam"
+    t.string   "sem2final"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
