@@ -1,4 +1,4 @@
-<% grades_by_period = Grade.includes({:schedule => [ {:section => [ :course => [:standards =>[:benchMarks]] ] }]}, :extended_grades).by_period(params[:grading_period]||Period.current_grading_period).joins(:student).merge(Student.where(:id => student.id)) %>
+<% grades_by_period = Grade.includes({:schedule => [ {:section => [ :course => [:standards =>[:benchMarks]] ] }]}, :extended_grades).by_period(params[:grading_period]||Period.current_grading_period).where("standards.grading_period =?", params[:grading_period]||Period.current_grading_period).joins(:student).merge(Student.where(:id => student.id)) %>
 
 <div class="print-only">
 <%= render :partial => "front_cover_top", :locals => {:student => student} %>

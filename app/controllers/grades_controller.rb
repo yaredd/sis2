@@ -16,7 +16,7 @@ class GradesController < ApplicationController
   # GET /grades/1.json
   def show
     @grade = Grade.find(params[:id])
-    @standards = @grade.schedule.section.course.standards
+    @standards = Standard.where(:grading_period => params[:grading_period]||Period.current_grading_period).where(:course_id => @grade.schedule.section.course.id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,15 +29,7 @@ class GradesController < ApplicationController
   def new
     @grade = Grade.new
     @grade.schedule_id = params[:schedule_id]
-    @standards = @grade.schedule.section.course.standards
-#    @egs = {}
-#    @standards.each do |std|
-#      std.benchMarks.each do |bm|
-#        eg=@grade.extended_grades.build
-#        eg.benchMark_id = bm.id
-#        @egs[bm.id] = eg
-#      end
-#    end
+    @standards = Standard.where(:grading_period => params[:grading_period]||Period.current_grading_period).where(:course_id => Schedule.find(params[:schedule_id]).section.course.id)
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @grade }
@@ -47,7 +39,7 @@ class GradesController < ApplicationController
   # GET /grades/1/edit
   def edit
     @grade = Grade.find(params[:id])
-    @standards = @grade.schedule.section.course.standards
+    @standards = Standard.where(:grading_period => params[:grading_period]||Period.current_grading_period).where(:course_id => @grade.schedule.section.course.id)
   end
 
   # POST /grades

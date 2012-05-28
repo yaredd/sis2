@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :name, "Standard:" %><br />
-    <%= f.text_field :name , :size => 80, :maxlength => 255 %>
+    <%= f.text_area :name , :size => "80x3" %>
   </div>
 
 	<div class="field">
@@ -25,7 +25,7 @@
     <%= f.label :grading_period %><br />
     <%= f.select :grading_period, options_for_select([["Sem2", "Sem2"], ["Sem1", "Sem1"]], [@standard.grading_period, @standard.grading_period]) %>
   </div>
-
+	<%= f.label :name, "BenchMark" %><br />
 		<%= f.fields_for :benchMarks do |builder| %>  		
 			<%= render "benchMark_fields", :f => builder %>
 		<% end %>

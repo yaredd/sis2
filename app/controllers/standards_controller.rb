@@ -4,7 +4,7 @@ class StandardsController < ApplicationController
   # GET /standards
   # GET /standards.json
   def index
-    @standards = Standard.page(params[:page]).search(params[:course_id])
+    @standards = Standard.page(params[:page]).per(10).search(params[:course_id], params[:period])
 
     respond_to do |format|
       format.html # index.html.erb

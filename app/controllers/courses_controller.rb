@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.page(params[:page]).search(params[:course])
+    @courses = Course.page(params[:page]).per(10).search(params[:course])
 
     respond_to do |format|
       format.html # index.html.erb
