@@ -23,11 +23,14 @@
 			<% end %>
 		</div>
 		<div class="report_card">
-			<% if params[:grading_period] && params[:grading_period] == "Sem1" && student.is_MS? %>
-				<%= render :partial => "student_standard_report", :locals => {:student => student}  %>
+			<% if student.is_MS? %>
+        <% if (params[:grading_period].blank? && Period.current_grading_period =~ /Sem/)|| params[:grading_period] =~ /Sem/ %>
+				  <%= render :partial => "student_standard_report", :locals => {:student => student}  %>
+        <% end %>
 				<div class="print-only" >
 					<%= render "academic_description" %>
 				</div>
+
 			<% else %><!-- print HS reports -->
 				<% if params[:grading_period] && params[:grading_period] == "Q1" %>
 					<I> Quarter 1 Progress Report: August-October 2011</I>
@@ -36,20 +39,70 @@
 				<% elsif params[:grading_period] && params[:grading_period] == "Q3"%>
 					<I> Quarter 3 Progress Report: January-March 2012</I>
 				<% else %>
-					<I> Semester 2 Progress Report: January-June 2012</I>
+					<I> Final Report: August 2011 - June 2012</I>
 				<% end %>
 				</h2>
 
 				<div class="aright">Student Name: <b><%= student.fullName %></b><br>        
 			 	Grade: <b><%= student.grade %></b><br>   
 				Advisor: <b><%= Teacher.find(student.teacher_id).fullName %></b> <br></div>
-				<div class="aleft"> Absence: <b><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></b><br>                                     
-				Tardies: <b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b><br></div>
+        <% if params[:grading_period] && params[:grading_period] != "Sem2" %>
+				  <div class="aleft"> Absence: <b><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></b><br>                                     
+				  Tardies: <b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b><br></div>
+        <% end %>
 				<table WIDTH=100% CELLPADDING=4 CELLSPACING=0>
-						<COL WIDTH=64*>
-					<COL WIDTH=64*>
-					<COL WIDTH=64*>
-					<COL WIDTH=64*>
+
+          <% if params[:grading_period] && params[:grading_period] == "Sem2" %>
+            <tr>
+						  <th rowspan="2" WIDTH=25% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						        Subject
+						      </th>
+						  <th rowspan="2" WIDTH=25% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						        Teacher
+						      </th>
+              <th colspan="3" WIDTH=25% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">Achievement</th>
+              <th rowspan="2" WIDTH=25% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">Effort</th>
+            </tr>
+
+					  <tr>
+						  <th WIDTH=15% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						        Sem. 1
+						      </th>
+						  <th WIDTH=15% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						        Exam
+						      </th>
+						  <th WIDTH=15% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+						        Sem. 2
+						      </th>
+
+					  </tr>
+
+						  <% schedules = student.schedules %>
+						  <% schedules.each do |sch| %>
+						      <tr VALIGN=TOP>
+						          <td>
+						              <%= sch.section.course.description %>
+						          </td>
+						          <td>
+						              <%= sch.teacher.fullName %>
+						          </td>
+						          <td class="put_center">
+                          <% sem1sch = Schedule.find_by_student_id student.id %>
+                          <%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.mark.try(:name) %>
+						          </td>
+						          <td class="put_center">
+						              <%= sch.final_grades.first.exam %>
+						          </td>
+						          <td class="put_center">
+						              <%= sch.final_grades.first.sem2final %>
+						          </td>
+						          <td class="put_center">
+						              <%= sch.grades.first.effort.try(:name) %>
+						          </td>
+						      </tr>
+						  <% end %>
+
+          <% else %>
 					<tr>
 						<th WIDTH=35% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
 						      Subject
@@ -82,6 +135,7 @@
 						        </td>
 						    </tr>
 						<% end %>
+          <% end %>
 				</table>
 		</div><!--report_card ends here-->
 

@@ -12,8 +12,12 @@ class StudentsController < ApplicationController
     end
   end
   
-  def report_card 
-    @students = Student.order(:firstName,:grade).search(params[:grade], params[:student]).includes(:schedules => [:grades]).where("grades.grading_period = ?", params[:grading_period]||=Period.current_grading_period).page(params[:page]).per(10)
+  def report_card
+    if (params[:grading_period].blank? && Period.current_grading_period == "Sem2")|| params[:grading_period] == "Sem2"
+      @students = Student.order(:firstName, :grade).search(params[:grade], params[:student]).includes(:schedules => [:grades, :final_grades]).where("grades.grading_period = ? OR final_grades.id IS NOT NULL", "Sem2").page(params[:page]).per(10)
+    else
+      @students = Student.order(:firstName,:grade).search(params[:grade], params[:student]).includes(:schedules => [:grades]).where("grades.grading_period = ?", params[:grading_period]||=Period.current_grading_period).page(params[:page]).per(10)
+    end
   end
 
   def warning_grades

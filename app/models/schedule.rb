@@ -5,6 +5,7 @@ class Schedule < ActiveRecord::Base
   belongs_to :period
   belongs_to :block
   has_many   :grades
+  has_many   :final_grades
 	has_many	 :interim_grades
 	
 	validates_presence_of :student_id, :teacher_id, :section_id, :period_id, :block_id

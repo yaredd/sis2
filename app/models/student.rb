@@ -7,10 +7,10 @@ class Student < ActiveRecord::Base
   attr_accessible :attendance_tardy, :attendance_absent
 
 
-	def current_grade_academic_standing_effort
+	def current_grade_academic_standing_effort(period)
 		honors = nil
 		probation_count = 0
-		self.grades.where(:grading_period => Period.current_grading_period).each do |g|
+		self.grades.where(:grading_period => period || Period.current_grading_period).each do |g|
 			effort = g.effort.try(:name)
 			if ["Excellent", "Good"].include? effort
 				if honors == nil
@@ -34,7 +34,7 @@ class Student < ActiveRecord::Base
 		end
 	end
 	
-	def current_grade_academic_standing_achievement
+	def current_grade_academic_standing_achievement(period)
 		overall_honors = nil
 		overall_probation = nil
     overall_count_4 = 0
@@ -42,7 +42,7 @@ class Student < ActiveRecord::Base
     overall_count_3_or_below = 0
 		flag = ""
 
-		self.grades.where(:grading_period => Period.current_grading_period).includes(:standards, :extended_grades).each do |g|
+		self.grades.where(:grading_period => period || Period.current_grading_period).includes(:standards, :extended_grades).each do |g|
 
 			course_count_4 = 0
 			course_count_6_or_above = 0
@@ -57,7 +57,7 @@ class Student < ActiveRecord::Base
 				std_count_3_or_below = 0
 			
 				std.benchMarks.each do |bm|
-					bmGrade = g.extended_grades.where(:benchMark_id => bm.id).first.bmGrade
+					bmGrade = g.extended_grades.where(:benchMark_id => bm.id).first.try(:bmGrade)
 					case bmGrade
 					when "4","4m"
 						std_count_4 += 1

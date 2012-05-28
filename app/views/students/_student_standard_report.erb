@@ -27,10 +27,14 @@
 		<td colspan=3 style="text-align: center">Academic Standing *</td>
 	</tr>
 	<tr>
-		<td>Effort</td><td><b><%= student.current_grade_academic_standing_effort %></b></td><td></td>
+		<td>Effort</td>
+    <td><b><%= student.current_grade_academic_standing_effort "Sem1" %></b></td>
+    <td><b><%= student.current_grade_academic_standing_effort "Sem2" unless Period.current_grading_period != "Sem2" %></td>
 	</tr>
 	<tr>
-		<td>Achievement</td><td><b><%= student.current_grade_academic_standing_achievement %></b></td><td></td>
+		<td>Achievement</td>
+    <td><b><%= student.current_grade_academic_standing_achievement "Sem1" %></b></td>
+    <td><b><%= student.current_grade_academic_standing_achievement "Sem2" unless Period.current_grading_period != "Sem2"%></b></td>
 	</tr>
 </table>
 <div class="print-only">
