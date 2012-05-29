@@ -88,7 +88,7 @@
 						          </td>
 						          <td class="put_center">
                           <% sem1sch = Schedule.find_by_student_id student.id %>
-                          <%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.try(:mark).name %>
+                          <%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.try(:mark).try(:name) %>
 						          </td>
 						          <td class="put_center">
 						              <%= sch.final_grades.first.try(:exam) %>
