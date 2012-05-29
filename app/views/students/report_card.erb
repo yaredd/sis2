@@ -52,7 +52,7 @@
         <% end %>
 				<table WIDTH=100% CELLPADDING=4 CELLSPACING=0>
 
-          <% if params[:grading_period] && params[:grading_period] == "Sem2" %>
+          <% if params[:grading_period] && params[:grading_period] == "Sem2"%>
             <tr>
 						  <th rowspan="2" WIDTH=25% STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
 						        Subject
@@ -91,13 +91,23 @@
                           <%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.try(:mark).try(:name) %>
 						          </td>
 						          <td class="put_center">
+                      <% if student.grade == "12" %>
+                          <b>NA</b>
+                      <% else %>
 						              <%= sch.final_grades.first.try(:exam) %>
+                      <% end %>
 						          </td>
 						          <td class="put_center">
+                      <% if student.grade == "12" %>
+                          <%= sch.grades.first.try(:mark).try(:name) %>
+                      <% else %>
+
 						              <%= sch.final_grades.first.try(:sem2final) %>
+
+                      <% end %>
 						          </td>
 						          <td class="put_center">
-						              <%= sch.grades.first.effort.try(:name) %>
+						              <%= sch.grades.first.try(:effort).try(:name) %>
 						          </td>
 						      </tr>
 						  <% end %>
