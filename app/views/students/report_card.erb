@@ -91,10 +91,10 @@
                           <%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.mark.try(:name) %>
 						          </td>
 						          <td class="put_center">
-						              <%= sch.final_grades.first.exam %>
+						              <%= sch.final_grades.first.try(:exam) %>
 						          </td>
 						          <td class="put_center">
-						              <%= sch.final_grades.first.sem2final %>
+						              <%= sch.final_grades.first.try(:sem2final) %>
 						          </td>
 						          <td class="put_center">
 						              <%= sch.grades.first.effort.try(:name) %>
