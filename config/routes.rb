@@ -35,6 +35,7 @@ Sis2::Application.routes.draw do
   resources :teachers
 
   resources :students do
+    get :long_form_report, :on => :collection
     get :report_card, :on => :collection
     get :interim_report_card, :on => :collection
     get :warning_grades, :on => :collection

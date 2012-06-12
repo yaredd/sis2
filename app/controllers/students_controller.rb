@@ -27,6 +27,13 @@ class StudentsController < ApplicationController
   def interim_report_card 
     @students = Student.search(params[:grade], params[:student]).includes(:schedules => [:interim_grades]).where("interim_grades.grading_period = ?", params[:grading_period]||=Period.current_grading_period).page(params[:page]).per(10)
   end
+
+  def long_form_report
+    @hsStudents = Student.where(:grade => ["9", "10", "11", "12"]).page(params[:page]).per(50)
+    hsStudentsIds = @hsStudents.map {|st| st.id }
+    @courses = Course.all
+    @sem1HSSchedules = Schedule.where(:student_id => hsStudentsIds).where(:period_id => Period.where(:name => ["Sem1", "All"]).map { |p| p.id })
+  end
   
   # GET /students/1
   # GET /students/1.json

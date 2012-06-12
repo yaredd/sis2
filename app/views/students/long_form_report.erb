@@ -1,0 +1,22 @@
+<table>
+  <tr>
+  <th>Student</th>
+  <% @courses.each do |c| %>
+    <th><%= c.name %></th>
+  <% end %>
+  </tr>
+  <tr>
+    <% @hsStudents.each do |st| %>
+      <tr>
+      <td><%= st.fullNameGrade %></td>
+      <% @courses.each do |c| %>
+        <% grade = @sem1HSSchedules.where(:period_id => Period.where(:name => ["Sem1", "All"]).map {|p| p.id }).where(:student_id => st.id).where(:section_id => c.sections.map {|s| s.id }).includes(:grades).where("grades.grading_period = 'Sem1'").where("grades.mark_id is not null").first %>
+        <% grade = grade.blank? ? "" : grade.grades %>
+        <% grade = grade.blank? ? "" : grade.first %>
+        <% grade = grade.blank? ? "" : grade.mark.name %>
+       <td><%= grade %></td>
+      <% end %>
+      </tr>
+    <% end %>
+</table>
+
