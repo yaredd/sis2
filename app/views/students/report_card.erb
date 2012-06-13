@@ -94,7 +94,7 @@
                       <% if student.grade == "12" %>
                           <b>NA</b>
                       <% else %>
-						              <%= sch.final_grades.first.try(:exam).gsub(/.0/, '') %>
+						              <%= sch.final_grades.first.exam.gsub(/.0/, '') unless sch.final_grades.first.try(:exam).blank? %>
                       <% end %>
 						          </td>
 						          <td class="put_center">
@@ -107,7 +107,11 @@
                       <% end %>
 						          </td>
 						          <td class="put_center">
+                      <% if student.grade == "12" %>
 						              <%= sch.grades.first.try(:effort).try(:name) %>
+                      <% else %>
+                                 <%= sch.final_grades.first.try(:effort).try(:name) %>                              
+                      <% end %>
 						          </td>
 						      </tr>
 						  <% end %>
