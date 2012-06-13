@@ -20,8 +20,10 @@
       <tr>
         <th id="name">Student</th>
         <th id="course">Course</th>
-        <th>Mark</th>
+        <th>Sem2</th>
+        <th>Exam</th>
         <th id="grade">Effort</th>
+        <th>Sem2 Final</th>
         <th></th>
 
       </tr>
@@ -31,15 +33,19 @@
         <td><%= schedule.student.fullNameGrade %></td>
         <td><%= schedule.section.course.name %></td>
 
-        <% if Grade.by_schedule_period(Period.current_grading_period, schedule.id).nil? %>
+        <% if FinalGrade.find_by_schedule_id(schedule.id).nil? %>
+          <td></td>
+          <td></td>
           <td></td>
           <td></td>
 
           <td>&#9744</td>
         <% else %>
 
-          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).mark.try(:name) %></td>
-          <td><%= Grade.by_schedule_period(Period.current_grading_period, schedule.id).effort.try(:name) %></td>
+          <td><%= FinalGrade.find_by_schedule_id(schedule.id).sem2 %></td>
+          <td><%= FinalGrade.find_by_schedule_id(schedule.id).exam %></td>
+          <td><%= FinalGrade.find_by_schedule_id(schedule.id).effort.try(:name) %></td>
+          <td><%= FinalGrade.find_by_schedule_id(schedule.id).sem2final %></td>
           <td>&#9744</td>
         <% end %>
       </tr>
