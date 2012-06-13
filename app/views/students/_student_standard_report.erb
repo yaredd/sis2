@@ -94,7 +94,9 @@
 					</table>
 				<% end %>
 				<br />
+                                <% if ! ifgrade.try(:comment).blank? %>
 				<b>Comment:</b><br />
+                                <% end %>
 				</div>
 				<div class="report_comment">
 					<%= grade.try(:comment) %>
