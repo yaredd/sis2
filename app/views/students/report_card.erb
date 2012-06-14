@@ -87,8 +87,8 @@
                           <%= sch.teacher.fullName %>
                       </td>
                       <td class="put_center">
-                          <% sem1sch = Schedule.find_by_student_id student.id %>
-                          <b><%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.try(:mark).try(:name) %></b>
+                          <% sem1sch = schedules.where(:section_id => Section.find(sch.section_id).course.sections.map { |sec| sec.id }).where(:period_id => Period.where("name = 'Sem1' or name = 'All'").map { |p| p.id }).first %>
+                          <b><%= sem1sch.grades.where("grades.grading_period = ?", "Sem1").first.try(:mark).try(:name) unless sem1sch.blank? %></b>
                       </td>
                       <td class="put_center">
                       <% if student.grade == "12" %>
