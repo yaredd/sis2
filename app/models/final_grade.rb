@@ -7,7 +7,7 @@ class FinalGrade < ActiveRecord::Base
   has_many :standards, :through => :course
   has_one :teacher, :through => :schedule
 
-  validates_presence_of :effort_id, :sem2final
+  #validates_presence_of :effort_id, :sem2final
 
 end
 
