@@ -8,8 +8,10 @@
     <th>Middlename</th>
     <th>Gender</th>
     <th>Grade</th>
-    <th>Tardy</th>
-    <th>Absent</th>
+    <th>Tardy Sem1</th>
+    <th>Absent Sem1</th>
+    <th>Tardy Sem2</th>
+    <th>Absent Sem2</th>
     <th></th>
   </tr>
 
@@ -23,6 +25,8 @@
     <td><%= student.grade %></td>
     <td><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></td>
     <td><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></td>
+    <td><%= student.attendance_tardy_sem2.nil? ? "None" : student.attendance_tardy_sem2 %></td>
+    <td><%= student.attendance_absent_sem2.nil? ? "None" : "%.1f" % student.attendance_absent_sem2 %></td>
     <td><%= link_to 'edit', edit_student_path(student) %></td>
   </tr>
 <% end %>

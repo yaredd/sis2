@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524191854) do
+ActiveRecord::Schema.define(:version => 20120614060026) do
 
   create_table "bench_marks", :force => true do |t|
     t.string  "name"
@@ -193,6 +193,8 @@ ActiveRecord::Schema.define(:version => 20120524191854) do
     t.integer  "teacher_id"
     t.integer  "attendance_tardy"
     t.float    "attendance_absent"
+    t.integer  "attendance_tardy_sem2"
+    t.float    "attendance_absent_sem2"
   end
 
   create_table "teachers", :force => true do |t|

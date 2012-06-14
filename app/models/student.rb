@@ -4,7 +4,7 @@ class Student < ActiveRecord::Base
   has_many :sections, :through => :schedules
   has_many :courses, :through => :sections
 
-  attr_accessible :attendance_tardy, :attendance_absent
+  attr_accessible :attendance_tardy, :attendance_absent, :attendance_tardy_sem2, :attendance_absent_sem2
 
 
 	def current_grade_academic_standing_effort(period)
