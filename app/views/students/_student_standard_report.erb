@@ -18,12 +18,12 @@
 		<td></td><td>Semester1</td><td>Semester2</td>
 	</tr>
 	<tr>
-		<td>Absence</td><td><b><%= student.attendance_absent.nil? ? "None" : "%.1f" % student.attendance_absent %></b></td>
-                                <td><b><%= student.attendance_absent_sem2.nil? ? "None" : "%.1f" % student.attendance_absent_sem2 %></b></td>
+		<td>Absence</td><td><b><%= student.attendance_absent.nil? || student.attendance_absent == 0 ? "None" : "%.1f" % student.attendance_absent %></b></td>
+                                <td><b><%= student.attendance_absent_sem2.nil? || student.attendance_absent_sem2 == 0  ? "None" : "%.1f" % student.attendance_absent_sem2 %></b></td>
 	</tr>
 	<tr>
-		<td>Tardies</td><td><b><%= student.attendance_tardy.nil? ? "None" : student.attendance_tardy %></b></td>
-                                <td><b><%= student.attendance_tardy_sem2.nil? ? "None" : student.attendance_tardy_sem2 %></b></td>
+		<td>Tardies</td><td><b><%= student.attendance_tardy.nil?  || student.attendance_tardy == 0 ? "None" : student.attendance_tardy %></b></td>
+                                <td><b><%= student.attendance_tardy_sem2.nil?  || student.attendance_tardy_sem2 == 0 ? "None" : student.attendance_tardy_sem2 %></b></td>
 	</tr>
 	<tr>
 		<td colspan=3 style="text-align: center">Academic Standing *</td>
